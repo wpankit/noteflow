@@ -156,10 +156,23 @@ Your notes are kept, in case you install NoteFlow again. To remove everything, t
 3. Type [[ to link to any post, page or note, with suggestions as you type.
 4. Share a note with people as viewers or editors, or with everyone.
 5. Comments and @mentions next to the note, with everyone who has it open shown at the top.
-6. Version history: see who changed what, preview any version and restore it.
-7. Gallery view, in dark appearance.
-8. Quick capture from the toolbar, and the Dashboard widget.
-9. Settings: choose who can use NoteFlow and which modules are on.
+6. Two people changed the same line at once: NoteFlow asks which version to keep instead of overwriting either.
+7. Version history: see who changed what, preview any version and restore it.
+8. The notification bell in the toolbar, on every screen.
+9. The Posts screen shows how many comments and issues are open on each post.
+10. Discussions in the classic editor.
+11. Notes attached to a post, next to its discussion.
+12. Quick capture from the toolbar, and the Dashboard widget.
+13. Quick capture on your site, attached to the post you are reading.
+14. Start a note from a template.
+15. Formatting: titles, headings, lists, checklists, quotes, code and tables.
+16. Search every note, with matches highlighted.
+17. Everything a note can do: pin, move, remind, attach to a post, colour, share, duplicate, export and print.
+18. Gallery view, in dark appearance.
+19. Light or dark appearance, and five accent colours.
+20. Keyboard shortcuts for almost everything.
+21. NoteFlow on a phone.
+22. Settings: choose who can use NoteFlow and which modules are on.
 
 == Changelog ==
 

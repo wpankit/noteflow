@@ -155,9 +155,45 @@ function nf_demo_thread( $post_id, $thread, $replies = array() ) {
 	return $id;
 }
 nf_demo_thread( $post_id, array( 'type' => 'comment', 'user' => $M, 'text' => 'Worth saying which page kept the slider?', 'block' => 'nfdemoslider', 'quote' => 'The slider was only used on one page.', 'status' => 'resolved', 'resolved_by' => $P, 'resolved_at' => time() - 100 * MINUTE_IN_SECONDS, 'time' => 180 ), array( array( $P, 'Added it: the old About page.', 110 ) ) );
-nf_demo_thread( $post_id, array( 'type' => 'comment', 'user' => $M, 'text' => 'Can we lead with 1.9 seconds? That is the number people will remember.', 'block' => 'nfdemointro', 'quote' => 'Last month our homepage took 4.2 seconds to load on a phone. Today it takes 1.9.', 'time' => 52 ), array( array( $P, 'Good idea. I will swap the first two sentences.', 34 ) ) );
-nf_demo_thread( $post_id, array( 'type' => 'issue', 'user' => $P, 'text' => 'We need the waterfall screenshot here. @Maria Chen can you export it from the lab test?', 'block' => 'nfdemochart', 'quote' => 'The waterfall chart showed three problems straight away', 'assignee' => $M, 'mentions' => array( $M ), 'time' => 21 ), array( array( $M, 'On it, I will add it before lunch.', 9 ) ) );
+$intro_thread = nf_demo_thread( $post_id, array( 'type' => 'comment', 'user' => $M, 'text' => 'Can we lead with 1.9 seconds? That is the number people will remember.', 'block' => 'nfdemointro', 'quote' => 'Last month our homepage took 4.2 seconds to load on a phone. Today it takes 1.9.', 'time' => 52 ), array( array( $P, 'Good idea. I will swap the first two sentences.', 34 ) ) );
+$chart_thread = nf_demo_thread( $post_id, array( 'type' => 'issue', 'user' => $P, 'text' => 'We need the waterfall screenshot here. @Maria Chen can you export it from the lab test?', 'block' => 'nfdemochart', 'quote' => 'The waterfall chart showed three problems straight away', 'assignee' => $M, 'mentions' => array( $M ), 'time' => 21 ), array( array( $M, 'On it, I will add it before lunch.', 9 ) ) );
 update_post_meta( $post_id, NoteFlow_Module_Discussions::OPEN, 2 );
+
+// The rest of October's posts, for the posts list, with a discussion on two of them.
+/** Creates a demo post as someone, back-dated, with paragraphs. Demo posts stay unpublished. */
+function nf_demo_post( $author, $title, $status, $paragraphs, $days_ago, $hour ) {
+	$content = array();
+	foreach ( $paragraphs as $text ) {
+		$content[] = "<!-- wp:paragraph -->\n<p>" . $text . "</p>\n<!-- /wp:paragraph -->";
+	}
+	$id = wp_insert_post( array( 'post_title' => $title, 'post_status' => $status, 'post_author' => $author, 'post_content' => wp_slash( implode( "\n\n", $content ) ) ) );
+	nf_demo_date( $id, $days_ago, $hour );
+	return $id;
+}
+$guide = nf_demo_post( $S, 'A plain guide to block themes', 'pending', array( 'Block themes let you edit every part of your site, from the header to the footer, with blocks.', 'In this guide we build a small theme with a theme.json file, three templates and two patterns.' ), 0, 6.5 );
+nf_demo_thread( $guide, array( 'type' => 'comment', 'user' => $P, 'text' => 'Love the intro. Can we add a screenshot of the Site Editor here?', 'time' => 95 ) );
+nf_demo_thread( $guide, array( 'type' => 'comment', 'user' => $M, 'text' => 'Section 3 repeats section 1 a little. Merge them?', 'time' => 64 ), array( array( $S, 'Good catch, merging them now.', 50 ) ) );
+nf_demo_thread( $guide, array( 'type' => 'issue', 'user' => $P, 'text' => 'The theme.json example is missing a closing brace. @Sofia Alvarez can you fix it before Friday?', 'assignee' => $S, 'mentions' => array( $S ), 'time' => 31 ) );
+update_post_meta( $guide, NoteFlow_Module_Discussions::OPEN, 3 );
+
+$study = nf_demo_post( $M, 'Client case study: Northwind', 'draft', array( 'Northwind roasts coffee on the coast and sells subscriptions across the country.', 'They came to us with a slow site, a checkout that lost orders, and a launch date six weeks away.' ), 1, 15 );
+$study_thread = nf_demo_thread( $study, array( 'type' => 'comment', 'user' => $P, 'text' => 'Should we name the payment provider here?', 'status' => 'resolved', 'resolved_by' => $M, 'resolved_at' => time() - 130 * MINUTE_IN_SECONDS, 'time' => 200 ), array( array( $M, 'Anna said yes, it is in the next paragraph now.', 131 ) ) );
+nf_demo_thread( $study, array( 'type' => 'issue', 'user' => $P, 'text' => 'Anna asked us to leave out the revenue numbers. Can you take them out of the results section?', 'assignee' => $M, 'time' => 75 ) );
+update_post_meta( $study, NoteFlow_Module_Discussions::OPEN, 1 );
+
+$checklist = nf_demo_post( $R, 'Our WordPress maintenance checklist', 'draft', array( 'Every month we run the same checks on every client site. Here is the list, and why each item is on it.' ), 2, 11 );
+
+// Ideas from the newsletter note, in progress.
+$contrast = nf_demo_post( $S, 'A short guide to accessible colour contrast', 'pending', array( 'Good contrast makes text readable for everyone, in bright sunlight and on old screens.' ), 3, 10 );
+nf_demo_thread( $contrast, array( 'type' => 'issue', 'user' => $M, 'text' => 'The example buttons fail AA. Can we swap them for the new palette?', 'assignee' => $S, 'time' => 300 ) );
+update_post_meta( $contrast, NoteFlow_Module_Discussions::OPEN, 1 );
+$scenes = nf_demo_post( $M, 'Behind the scenes of a site launch', 'draft', array( 'Launch day is mostly waiting. Here is what the week before it looks like at our studio.' ), 3, 16 );
+nf_demo_thread( $scenes, array( 'type' => 'comment', 'user' => $P, 'text' => 'Could we add a photo of the launch board?', 'time' => 800 ) );
+nf_demo_thread( $scenes, array( 'type' => 'comment', 'user' => $P, 'text' => 'Rahul has the timeline from the Northwind launch if you want it.', 'time' => 790 ) );
+update_post_meta( $scenes, NoteFlow_Module_Discussions::OPEN, 2 );
+$php = nf_demo_post( $R, 'What we learned moving 40 sites to PHP 8.3', 'draft', array( 'Most sites moved without a problem. The rest taught us a lot about old plugins.' ), 5, 9 );
+nf_demo_thread( $php, array( 'type' => 'comment', 'user' => $P, 'text' => 'Nice. Can you add how long the whole move took?', 'status' => 'resolved', 'resolved_by' => $R, 'resolved_at' => time() - 2 * DAY_IN_SECONDS, 'time' => 4000 ) );
+$plugins = nf_demo_post( $P, 'Five plugins we remove from every new client site', 'draft', array( 'Every new client site comes with a few plugins it does not need. These five go first.' ), 4, 14 );
 
 $seo = nf_demo_note( $P, 'Edits for the page speed post', '<ul class="nf-checklist"><li class="nf-checked">Add before and after numbers to the intro</li><li>Shorten section 3</li><li>Add a screenshot of the waterfall chart</li></ul>', array( 'folder' => $folders['Content'], 'linked' => $post_id ), 0, 7.5 );
 $seo2 = nf_demo_note( $S, 'Link the image guide in step 2', '<p>Could we link to the image optimisation guide from step 2? It answers the most common question we get.</p>', array( 'linked' => $post_id ), 0, 7.9 );
@@ -167,12 +203,16 @@ NoteFlow_Access::set_share( $seo2, '', array( $P => 'edit' ) );
 $podcast = nf_demo_note( $M, 'Podcast guest list', '<p>People to invite this season.</p><ul class="nf-checklist"><li class="nf-checked">Someone who runs a WooCommerce store</li><li>An accessibility specialist</li><li>An agency founder we met at WordCamp</li></ul>', array(), 1, 12 );
 NoteFlow_Access::set_share( $podcast, '', array( $P => 'edit' ) );
 
-// Notifications for Priya.
+// Notifications for Priya, newest first.
 update_user_option( $P, 'noteflow_notifications', array(
-	array( 'id' => 'demo1', 'type' => 'mention', 'note' => $launch, 'actor' => $M, 'text' => 'Forms send fine now. @Priya Sharma can you check the site on your phone before Thursday?', 'time' => time() - 42 * MINUTE_IN_SECONDS, 'read' => false ),
-	array( 'id' => 'demo2', 'type' => 'share', 'note' => $podcast, 'actor' => $M, 'text' => 'edit', 'time' => time() - DAY_IN_SECONDS, 'read' => true ),
+	array( 'id' => 'demo1', 'type' => 'post_reply', 'note' => $post_id, 'actor' => $M, 'text' => 'On it, I will add it before lunch.', 'time' => time() - 9 * MINUTE_IN_SECONDS, 'read' => false, 'thread' => $chart_thread ),
+	array( 'id' => 'demo2', 'type' => 'mention', 'note' => $launch, 'actor' => $M, 'text' => 'Forms send fine now. @Priya Sharma can you check the site on your phone before Thursday?', 'time' => time() - 42 * MINUTE_IN_SECONDS, 'read' => false ),
+	array( 'id' => 'demo3', 'type' => 'post_comment', 'note' => $post_id, 'actor' => $M, 'text' => 'Can we lead with 1.9 seconds? That is the number people will remember.', 'time' => time() - 52 * MINUTE_IN_SECONDS, 'read' => false, 'thread' => $intro_thread ),
+	array( 'id' => 'demo4', 'type' => 'post_resolved', 'note' => $study, 'actor' => $M, 'text' => 'Should we name the payment provider here?', 'time' => time() - 130 * MINUTE_IN_SECONDS, 'read' => true, 'thread' => $study_thread ),
+	array( 'id' => 'demo5', 'type' => 'share', 'note' => $podcast, 'actor' => $M, 'text' => 'edit', 'time' => time() - DAY_IN_SECONDS, 'read' => true ),
+	array( 'id' => 'demo6', 'type' => 'reminder', 'note' => $onboarding, 'actor' => 0, 'text' => '', 'time' => time() - 2 * DAY_IN_SECONDS, 'read' => true ),
 ) );
 
-update_option( 'noteflow_demo_ids', array( $seo2, $podcast, $post_id ) );
-update_option( 'noteflow_demo', array( 'launch' => $launch, 'calendar' => $calendar, 'post' => $post_id, 'podcast' => $podcast, 'brand' => $brand, 'newsletter' => $newsletter ) );
+update_option( 'noteflow_demo_ids', array( $seo2, $podcast, $post_id, $guide, $study, $checklist, $contrast, $scenes, $php, $plugins ) );
+update_option( 'noteflow_demo', array( 'launch' => $launch, 'calendar' => $calendar, 'post' => $post_id, 'podcast' => $podcast, 'brand' => $brand, 'newsletter' => $newsletter, 'guide' => $guide, 'study' => $study, 'posts' => array( $post_id, $guide, $study, $checklist, $contrast, $scenes, $php, $plugins ) ) );
 echo wp_json_encode( get_option( 'noteflow_demo' ) ), "\n";
