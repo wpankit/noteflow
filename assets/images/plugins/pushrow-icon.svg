@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.05 -3 44 44" width="256" height="256" role="img" aria-label="PushRow">
+<rect x="1" y="2" width="34" height="34" rx="9" fill="#0E7C86"/>
+<rect x="8" y="9.5" width="16" height="5" rx="2.5" fill="#fff" fill-opacity=".6"/>
+<rect x="8" y="23.5" width="16" height="5" rx="2.5" fill="#fff" fill-opacity=".6"/>
+<path fill="#F5A524" d="M10.5 16.2H28.4L26.9 13.2A1.7 1.7 0 0 1 29.3 11L40 17.6A1.65 1.65 0 0 1 40 20.4L29.3 27A1.7 1.7 0 0 1 26.9 24.8L28.4 21.8H10.5A2.8 2.8 0 0 1 10.5 16.2Z"/>
+</svg>

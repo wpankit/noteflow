@@ -1,0 +1,324 @@
+/**
+ * NoteFlow → Settings.
+ */
+
+.nf-settings {
+	--nf-accent: var(--wp-admin-theme-color, #2271b1);
+	max-width: 1180px;
+}
+
+.nf-settings-header {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin: 22px 0 18px;
+}
+
+.nf-settings-header img {
+	flex: none;
+	border-radius: 11px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.nf-settings-header h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 23px;
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.nf-settings-header p {
+	margin: 2px 0 0;
+	color: #646970;
+}
+
+.nf-settings .nf-open-app {
+	margin-left: auto;
+}
+
+.nf-settings-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 320px;
+	gap: 20px;
+	align-items: start;
+}
+
+.nf-settings .nf-card {
+	margin: 0 0 20px;
+	padding: 20px 24px;
+	border: 1px solid #dcdcde;
+	border-radius: 10px;
+	background: #fff;
+}
+
+.nf-settings .nf-card h2 {
+	margin: 0 0 6px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.nf-card-intro {
+	max-width: 640px;
+	margin: 0 0 16px;
+	color: #646970;
+}
+
+.nf-roles {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 22px;
+}
+
+.nf-role {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.nf-toggles {
+	display: grid;
+	gap: 18px;
+}
+
+.nf-toggle {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	cursor: pointer;
+}
+
+.nf-toggle input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+	opacity: 0;
+}
+
+.nf-toggle-track {
+	position: relative;
+	flex: none;
+	width: 36px;
+	height: 20px;
+	margin-top: 1px;
+	border-radius: 10px;
+	background: #c3c4c7;
+	transition: background-color 0.15s ease;
+}
+
+.nf-toggle-track::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	transition: transform 0.15s ease;
+}
+
+.nf-toggle input:checked + .nf-toggle-track {
+	background: var(--nf-accent);
+}
+
+.nf-toggle input:checked + .nf-toggle-track::after {
+	transform: translateX(16px);
+}
+
+.nf-toggle input:focus-visible + .nf-toggle-track {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--nf-accent);
+}
+
+.nf-toggle-text strong {
+	display: block;
+	margin-bottom: 2px;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.nf-toggle-text span {
+	display: block;
+	max-width: 620px;
+	color: #646970;
+}
+
+.nf-modules {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 14px;
+}
+
+.nf-module {
+	display: grid;
+	grid-template-columns: 36px minmax(0, 1fr);
+	gap: 12px;
+	padding: 16px;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	background: #fcfcfc;
+}
+
+.nf-module-icon {
+	display: grid;
+	place-items: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 9px;
+	background: #fff4cc;
+	color: #9a6c00;
+}
+
+.nf-module .nf-toggle {
+	flex-direction: row-reverse;
+	justify-content: space-between;
+}
+
+.nf-module-extra {
+	grid-column: 2;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.nf-module-extra legend {
+	margin-bottom: 6px;
+	color: #50575e;
+	font-weight: 600;
+}
+
+.nf-module-extra label {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0 14px 6px 0;
+}
+
+.nf-settings .submit {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+/* Sidebar */
+
+.nf-review .nf-stars {
+	color: #f5a300;
+	letter-spacing: 1px;
+}
+
+.nf-review .button {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.nf-review p {
+	color: #50575e;
+}
+
+.nf-support {
+	margin: 12px 0 0;
+}
+
+.nf-promo h3 {
+	margin: 18px 0 8px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.nf-promo-featured {
+	display: grid;
+	gap: 8px;
+	margin: 12px 0 0;
+	padding: 14px;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	color: inherit;
+	text-decoration: none;
+}
+
+.nf-promo-featured:hover,
+.nf-promo-featured:focus {
+	border-color: var(--nf-accent);
+	color: inherit;
+}
+
+.nf-promo-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.nf-promo-head img,
+.nf-promo-list img {
+	flex: none;
+	border-radius: 8px;
+}
+
+.nf-promo-name {
+	display: block;
+	color: #1d2327;
+	font-weight: 600;
+}
+
+.nf-promo-tagline {
+	display: block;
+	color: #646970;
+	font-size: 12px;
+}
+
+.nf-promo-description {
+	color: #50575e;
+}
+
+.nf-promo-cta {
+	color: var(--nf-accent);
+	font-weight: 600;
+}
+
+.nf-promo-list {
+	margin: 0;
+}
+
+.nf-promo-list li {
+	margin: 0;
+}
+
+.nf-promo-list a {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px;
+	border-radius: 8px;
+	color: inherit;
+	text-decoration: none;
+}
+
+.nf-promo-list a:hover,
+.nf-promo-list a:focus {
+	background: #f6f7f7;
+	color: inherit;
+}
+
+@media (max-width: 1100px) {
+	.nf-settings-layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.nf-modules {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+@media (max-width: 600px) {
+	.nf-settings-header {
+		flex-wrap: wrap;
+	}
+
+	.nf-settings .nf-open-app {
+		margin-left: 0;
+	}
+}

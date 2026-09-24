@@ -1,0 +1,359 @@
+/**
+ * NoteFlow quick notes: toolbar button and popover, Dashboard widget, editor Notes box.
+ */
+
+/* Toolbar button ------------------------------------------------------------------------ */
+
+#wpadminbar #wp-admin-bar-noteflow-quick .ab-icon {
+	top: 2px;
+	width: 20px;
+	height: 20px;
+	margin-right: 4px;
+}
+
+#wpadminbar #wp-admin-bar-noteflow-quick .ab-icon::before {
+	content: "";
+	display: block;
+	width: 20px;
+	height: 20px;
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6'/%3E%3Cpath d='M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 8 16l1.2-4Z'/%3E%3C/svg%3E") center / 17px no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6'/%3E%3Cpath d='M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 8 16l1.2-4Z'/%3E%3C/svg%3E") center / 17px no-repeat;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar #wp-admin-bar-noteflow-quick {
+		display: block;
+	}
+
+	#wpadminbar #wp-admin-bar-noteflow-quick .ab-label {
+		display: none;
+	}
+
+	#wpadminbar #wp-admin-bar-noteflow-quick > .ab-item {
+		width: 52px;
+		padding: 0;
+		text-align: center;
+	}
+
+	#wpadminbar #wp-admin-bar-noteflow-quick .ab-icon {
+		top: 3px;
+		width: 52px;
+		height: 46px;
+		margin: 0;
+	}
+
+	#wpadminbar #wp-admin-bar-noteflow-quick .ab-icon::before {
+		width: 52px;
+		height: 40px;
+		-webkit-mask-size: 26px;
+		mask-size: 26px;
+	}
+}
+
+/* Popover ---------------------------------------------------------------------------- */
+
+.nf-q-pop {
+	position: fixed;
+	z-index: 100000;
+	width: 380px;
+	max-width: calc(100vw - 16px);
+	padding: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+	color: #1d1d1f;
+	font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	text-align: left;
+	animation: nf-q-pop 0.14s ease-out;
+}
+
+.nf-q-pop *,
+.nf-q-pop *::before,
+.nf-q-pop *::after {
+	box-sizing: border-box;
+}
+
+@keyframes nf-q-pop {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+}
+
+.nf-q-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+
+.nf-q-pop .nf-q-close {
+	width: 26px;
+	height: 26px;
+	padding: 0;
+	border: 0;
+	border-radius: 7px;
+	background: none;
+	color: #6e6e73;
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.nf-q-pop .nf-q-close:hover {
+	background: rgba(0, 0, 0, 0.06);
+	color: #1d1d1f;
+}
+
+.nf-q-pop input.nf-q-title,
+.nf-q-pop textarea.nf-q-text {
+	display: block;
+	width: 100%;
+	margin: 0 0 8px;
+	padding: 8px 10px;
+	border: 1px solid #d2d2cf;
+	border-radius: 9px;
+	background: #fff;
+	box-shadow: none;
+	color: #1d1d1f;
+	font: inherit;
+}
+
+.nf-q-pop input.nf-q-title {
+	font-size: 15px;
+	font-weight: 650;
+}
+
+.nf-q-pop textarea.nf-q-text {
+	min-height: 110px;
+	resize: vertical;
+}
+
+.nf-q-pop input.nf-q-title:focus,
+.nf-q-pop textarea.nf-q-text:focus,
+.nf-q-pop select:focus {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+	outline: none;
+}
+
+.nf-q-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin: 4px 0 8px;
+	color: #6e6e73;
+}
+
+.nf-q-row select {
+	min-width: 160px;
+	max-width: 60%;
+}
+
+.nf-q-check {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 4px 0 8px;
+	color: #3a3a3c;
+}
+
+.nf-q-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.nf-q-open {
+	color: #6e6e73;
+	text-decoration: none;
+}
+
+.nf-q-open:hover {
+	color: #1d1d1f;
+	text-decoration: underline;
+}
+
+.nf-q-status {
+	flex: 1;
+	color: #6e6e73;
+	font-size: 12px;
+	text-align: right;
+}
+
+.nf-q-status.is-error,
+.nf-cn-status.is-error,
+.nf-dash-status.is-error {
+	color: #d63638;
+}
+
+.nf-q-pop .nf-q-save {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	height: 32px;
+	padding: 0 14px;
+	border: 0;
+	border-radius: 8px;
+	background: #f5bd1f;
+	color: #2b2200;
+	font: 600 13px/1 inherit;
+	font-family: inherit;
+	cursor: pointer;
+}
+
+.nf-q-pop .nf-q-save:hover {
+	background: #eab208;
+}
+
+.nf-q-pop .nf-q-save:disabled {
+	opacity: 0.6;
+}
+
+.nf-q-pop .nf-q-save kbd {
+	padding: 1px 5px;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.08);
+	font: 600 10.5px/1.4 ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* Note lists in the Dashboard widget and the Notes box ------------------------------------ */
+
+.nf-cn-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nf-cn-list li {
+	margin: 0;
+}
+
+.nf-cn-list a {
+	display: grid;
+	gap: 2px;
+	padding: 8px 10px;
+	border-radius: 7px;
+	color: inherit;
+	text-decoration: none;
+}
+
+.nf-cn-list a:hover {
+	background: #f6f7f7;
+}
+
+.nf-cn-list a:focus {
+	box-shadow: 0 0 0 2px #2271b1;
+	outline: none;
+}
+
+.nf-cn-list li + li a {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.nf-cn-list li.is-new a {
+	background: #fff8e1;
+}
+
+.nf-cn-title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	overflow: hidden;
+	color: #1d2327;
+	font-weight: 600;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.nf-cn-dot {
+	flex: none;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+
+.nf-cn-excerpt {
+	display: -webkit-box;
+	overflow: hidden;
+	color: #50575e;
+	font-size: 12.5px;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.nf-cn-meta {
+	color: #8c8f94;
+	font-size: 11.5px;
+}
+
+/* Dashboard widget */
+
+.nf-dash textarea {
+	width: 100%;
+	min-height: 70px;
+	border-radius: 6px;
+	resize: vertical;
+}
+
+.nf-dash-actions,
+.nf-cn-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 8px;
+}
+
+.nf-dash-status,
+.nf-cn-status {
+	color: #646970;
+	font-size: 12px;
+}
+
+#noteflow_dashboard .nf-dash-heading {
+	margin: 20px 0 4px;
+	color: #50575e;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.nf-dash-empty {
+	margin: 14px 0 0;
+	color: #646970;
+}
+
+.nf-dash-footer {
+	margin: 14px 0 0;
+	padding-top: 10px;
+	border-top: 1px solid #f0f0f1;
+}
+
+.nf-dash-footer a {
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* Editor Notes box */
+
+.nf-cn .nf-cn-list {
+	margin: 0 -10px 8px;
+}
+
+.nf-cn-empty {
+	margin: 0 0 10px;
+	color: #646970;
+}
+
+.nf-cn textarea {
+	width: 100%;
+	min-height: 64px;
+	resize: vertical;
+}

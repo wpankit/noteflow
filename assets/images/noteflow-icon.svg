@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="nf-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd84f"/>
+      <stop offset="1" stop-color="#f4a100"/>
+    </linearGradient>
+    <linearGradient id="nf-card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff8e6"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="58" fill="url(#nf-bg)"/>
+  <rect x="50" y="50" width="156" height="168" rx="26" fill="#9a5b00" opacity="0.22"/>
+  <rect x="50" y="42" width="156" height="168" rx="26" fill="url(#nf-card)"/>
+  <circle cx="88" cy="86" r="14" fill="#f4a100"/>
+  <path d="M81 86.5l5 5 9.5-10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="113" y="80" width="64" height="12" rx="6" fill="#3a2e0e"/>
+  <circle cx="88" cy="126" r="14" fill="#f4a100"/>
+  <path d="M81 126.5l5 5 9.5-10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="113" y="120" width="50" height="12" rx="6" fill="#3a2e0e" opacity="0.55"/>
+  <circle cx="88" cy="166" r="12" fill="none" stroke="#e3d6b4" stroke-width="4"/>
+  <rect x="113" y="160" width="40" height="12" rx="6" fill="#3a2e0e" opacity="0.3"/>
+  <circle cx="190" cy="196" r="22" fill="#3d8bfd" stroke="#fff" stroke-width="6"/>
+  <circle cx="190" cy="189" r="7" fill="#fff"/>
+  <path d="M177 207a13 13 0 0 1 26 0" fill="#fff"/>
+</svg>
