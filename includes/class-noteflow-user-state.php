@@ -290,6 +290,7 @@ class NoteFlow_User_State {
 	public static function default_prefs() {
 		return array(
 			'theme'     => 'light',
+			'accent'    => 'amber',
 			'view'      => 'list',
 			'sort'      => 'modified',
 			'group'     => true,
@@ -319,9 +320,10 @@ class NoteFlow_User_State {
 	public static function update_prefs( $user_id, $changes ) {
 		$prefs   = self::prefs( $user_id );
 		$choices = array(
-			'theme' => array( 'light', 'dark', 'auto' ),
-			'view'  => array( 'list', 'gallery' ),
-			'sort'  => array( 'modified', 'created', 'title' ),
+			'theme'  => array( 'light', 'dark', 'auto' ),
+			'accent' => array( 'amber', 'blue', 'green', 'purple', 'rose' ),
+			'view'   => array( 'list', 'gallery' ),
+			'sort'   => array( 'modified', 'created', 'title' ),
 		);
 
 		foreach ( $choices as $key => $allowed ) {

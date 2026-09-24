@@ -83,6 +83,7 @@ class NoteFlow_REST {
 		self::route( '/sync', 'POST', 'sync' );
 		self::route( '/people', 'GET', 'people' );
 		self::route( '/content', 'GET', 'search_content' );
+		self::route( '/links', 'GET', 'search_links' );
 		self::route( '/prefs', 'POST', 'update_prefs' );
 		self::route( '/notifications', 'GET', 'notifications' );
 		self::route( '/notifications/read', 'POST', 'read_notifications' );
@@ -1079,6 +1080,96 @@ class NoteFlow_REST {
 				'status' => $post->post_status,
 			);
 		}
+		return array( 'items' => $items );
+	}
+
+	/**
+	 * GET /links — posts, pages, any post type with an editing screen, and notes, to link
+	 * to from a note. Published content links to its page; drafts and private items link
+	 * to their editing screen, for people who can edit them.
+	 *
+	 * @param WP_REST_Request $request Request with 'search'.
+	 * @return array
+	 */
+	public static function search_links( WP_REST_Request $request ) {
+		$search = trim( sanitize_text_field( (string) $request->get_param( 'search' ) ) );
+		$uid    = get_current_user_id();
+		$items  = array();
+
+		// Notes first: linking one note to another is the most common case.
+		$note_ids = NoteFlow_Notes::accessible_ids( $uid, false );
+		if ( $note_ids ) {
+			$notes = get_posts(
+				array(
+					'post_type'              => NoteFlow_Notes::POST_TYPE,
+					'post_status'            => 'publish',
+					'post__in'               => $note_ids,
+					's'                      => $search,
+					'posts_per_page'         => 4,
+					'no_found_rows'          => true,
+					'update_post_term_cache' => false,
+					'orderby'                => '' === $search ? 'modified' : 'relevance',
+				)
+			);
+			foreach ( $notes as $note ) {
+				$summary = NoteFlow_Notes::summary( $note, $uid );
+				$items[] = array(
+					'id'     => $note->ID,
+					'title'  => '' === $summary['title'] ? __( 'New Note', 'noteflow' ) : $summary['title'],
+					'type'   => __( 'Note', 'noteflow' ),
+					'kind'   => 'note',
+					'status' => '',
+					'url'    => NoteFlow_Admin::note_url( $note->ID ),
+				);
+			}
+		}
+
+		$types = array();
+		foreach ( get_post_types( array( 'show_ui' => true ), 'objects' ) as $type ) {
+			if ( ! in_array( $type->name, array( 'attachment', 'wp_block', 'wp_navigation', 'wp_template', 'wp_template_part', 'wp_font_family', 'wp_font_face', 'wp_global_styles', NoteFlow_Notes::POST_TYPE ), true ) ) {
+				$types[ $type->name ] = $type;
+			}
+		}
+
+		$posts = $types ? get_posts(
+			array(
+				'post_type'              => array_keys( $types ),
+				'post_status'            => array( 'publish', 'draft', 'pending', 'future', 'private' ),
+				's'                      => $search,
+				'posts_per_page'         => 20,
+				'no_found_rows'          => true,
+				'update_post_term_cache' => false,
+				'orderby'                => '' === $search ? 'modified' : 'relevance',
+			)
+		) : array();
+
+		foreach ( $posts as $post ) {
+			$type = $types[ $post->post_type ];
+			$url  = '';
+			if ( 'publish' === $post->post_status && is_post_type_viewable( $type ) ) {
+				$url = get_permalink( $post );
+			} elseif ( ( 'private' === $post->post_status && current_user_can( 'read_post', $post->ID ) && is_post_type_viewable( $type ) ) ) {
+				$url = get_permalink( $post );
+			} elseif ( current_user_can( 'edit_post', $post->ID ) ) {
+				$url = get_edit_post_link( $post->ID, 'raw' );
+			}
+			if ( ! $url ) {
+				continue;
+			}
+			$title   = trim( html_entity_decode( $post->post_title, ENT_QUOTES, 'UTF-8' ) );
+			$items[] = array(
+				'id'     => $post->ID,
+				'title'  => '' === $title ? __( '(no title)', 'noteflow' ) : $title,
+				'type'   => $type->labels->singular_name,
+				'kind'   => 'post',
+				'status' => 'publish' === $post->post_status ? '' : $post->post_status,
+				'url'    => (string) $url,
+			);
+			if ( count( $items ) >= 12 ) {
+				break;
+			}
+		}
+
 		return array( 'items' => $items );
 	}
 

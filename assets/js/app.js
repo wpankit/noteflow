@@ -200,6 +200,9 @@
 			titleEl.focus();
 			titleEl.setSelectionRange( titleEl.value.length, titleEl.value.length );
 		},
+		onLinkQuery: ( q ) => linkSuggest.query( q ),
+		onLinkKey: ( e ) => linkSuggest.key( e ),
+		onOpenLink: openInternalLink,
 	} );
 	editor.root.setAttribute( 'aria-label', __( 'Note', 'noteflow' ) );
 	editor.root.dataset.placeholder = __( 'Start writing…', 'noteflow' );
@@ -208,9 +211,18 @@
 
 	const darkQuery = window.matchMedia( '(prefers-color-scheme: dark)' );
 
+	const ACCENTS = [
+		[ 'amber', __( 'Amber', 'noteflow' ), '#f5bd1f' ],
+		[ 'blue', __( 'Blue', 'noteflow' ), '#2f7cf6' ],
+		[ 'green', __( 'Green', 'noteflow' ), '#1f9d55' ],
+		[ 'purple', __( 'Purple', 'noteflow' ), '#7c4dff' ],
+		[ 'rose', __( 'Rose', 'noteflow' ), '#e5484d' ],
+	];
+
 	function applyTheme() {
 		const theme = S.prefs.theme === 'auto' ? ( darkQuery.matches ? 'dark' : 'light' ) : S.prefs.theme;
 		app.dataset.theme = theme === 'dark' ? 'dark' : 'light';
+		app.dataset.accent = ACCENTS.some( ( a ) => a[ 0 ] === S.prefs.accent ) ? S.prefs.accent : 'amber';
 	}
 	darkQuery.addEventListener( 'change', applyTheme );
 
@@ -2735,6 +2747,9 @@
 				'<div class="nf-pref"><span>' + esc( __( 'Appearance', 'noteflow' ) ) + '</span><div class="nf-segment" role="radiogroup" aria-label="' + esc( __( 'Appearance', 'noteflow' ) ) + '">' +
 				themes.map( ( t ) => '<button type="button" role="radio" aria-checked="' + ( p.theme === t[ 0 ] ) + '" data-theme-choice="' + t[ 0 ] + '">' + esc( t[ 1 ] ) + '</button>' ).join( '' ) +
 				'</div></div>' +
+				'<div class="nf-pref"><span>' + esc( __( 'Accent colour', 'noteflow' ) ) + '</span><div class="nf-accents" role="radiogroup" aria-label="' + esc( __( 'Accent colour', 'noteflow' ) ) + '">' +
+				ACCENTS.map( ( a ) => '<button type="button" class="nf-accent" role="radio" aria-checked="' + ( ( p.accent || 'amber' ) === a[ 0 ] ) + '" data-accent-choice="' + a[ 0 ] + '" style="--swatch:' + a[ 2 ] + '" aria-label="' + esc( a[ 1 ] ) + '" title="' + esc( a[ 1 ] ) + '"></button>' ).join( '' ) +
+				'</div></div>' +
 				'<label class="nf-pref"><span>' + esc( __( 'Sort notes by', 'noteflow' ) ) + '</span><select data-pref="sort">' +
 				sorts.map( ( s ) => '<option value="' + s[ 0 ] + '"' + ( p.sort === s[ 0 ] ? ' selected' : '' ) + '>' + esc( s[ 1 ] ) + '</option>' ).join( '' ) +
 				'</select></label>' +
@@ -2756,6 +2771,12 @@
 		);
 
 		pop.addEventListener( 'click', ( e ) => {
+			const accent = e.target.closest( '[data-accent-choice]' );
+			if ( accent ) {
+				pop.querySelectorAll( '[data-accent-choice]' ).forEach( ( b ) => b.setAttribute( 'aria-checked', b === accent ? 'true' : 'false' ) );
+				setPref( { accent: accent.dataset.accentChoice } );
+				return;
+			}
 			const theme = e.target.closest( '[data-theme-choice]' );
 			if ( theme ) {
 				pop.querySelectorAll( '[data-theme-choice]' ).forEach( ( b ) => b.setAttribute( 'aria-checked', b === theme ? 'true' : 'false' ) );
@@ -2825,6 +2846,127 @@
 		} );
 	}
 
+	/* Link suggestions: notes, posts, pages and any post type ---------------------------- */
+
+	function linkItemHTML( item, active ) {
+		const meta = [ item.type, item.status ? statusLabel( item.status ) : '' ].filter( Boolean ).join( ' · ' );
+		return (
+			'<li role="option" aria-selected="' + active + '"><button type="button" class="nf-link-item' + ( active ? ' is-active' : '' ) + '" data-url="' + esc( item.url ) + '" data-title="' + esc( item.title ) + '">' +
+			icon( item.kind === 'note' ? 'notes' : 'file', 16 ) +
+			'<span><strong>' + esc( item.title ) + '</strong><span>' + esc( meta ) + '</span></span></button></li>'
+		);
+	}
+
+	/** Searches linkable items; resolves to a list. */
+	const findLinks = ( () => {
+		let token = 0;
+		return async ( search ) => {
+			const mine = ++token;
+			try {
+				const res = await api.get( '/links', { search } );
+				return mine === token ? res.items : null;
+			} catch ( err ) {
+				return mine === token ? [] : null;
+			}
+		};
+	} )();
+
+	/** The list that follows [[ in the editor. */
+	const linkSuggest = ( () => {
+		let el = null;
+		let items = [];
+		let active = 0;
+		let timer = null;
+
+		const close = () => {
+			clearTimeout( timer );
+			if ( el ) {
+				el.remove();
+				el = null;
+			}
+			items = [];
+		};
+
+		const render = ( rect ) => {
+			if ( ! el ) {
+				el = document.createElement( 'div' );
+				el.className = 'nf-link-suggest';
+				el.setAttribute( 'role', 'listbox' );
+				el.setAttribute( 'aria-label', __( 'Link to', 'noteflow' ) );
+				$( '.nf-layer' ).appendChild( el );
+				el.addEventListener( 'mousedown', ( e ) => {
+					const btn = e.target.closest( '[data-url]' );
+					if ( btn ) {
+						e.preventDefault();
+						editor.insertLinkFromQuery( btn.dataset.url, btn.dataset.title );
+					}
+				} );
+			}
+			el.innerHTML = items.length
+				? '<p class="nf-link-suggest-head">' + esc( __( 'Link to…', 'noteflow' ) ) + '</p><ul>' + items.map( ( item, i ) => linkItemHTML( item, i === active ) ).join( '' ) + '</ul>'
+				: '<p class="nf-link-suggest-empty">' + esc( __( 'Type to search notes, posts and pages.', 'noteflow' ) ) + '</p>';
+			if ( rect ) {
+				const top = rect.bottom + 6;
+				el.style.left = Math.min( Math.max( 8, rect.left ), window.innerWidth - 340 ) + 'px';
+				el.style.top = ( top + 280 > window.innerHeight ? Math.max( 8, rect.top - 290 ) : top ) + 'px';
+			}
+		};
+
+		return {
+			query( q ) {
+				if ( ! q ) {
+					close();
+					return;
+				}
+				render( q.rect );
+				clearTimeout( timer );
+				timer = setTimeout( async () => {
+					const found = await findLinks( q.query );
+					if ( found && editor.linkQuery ) {
+						items = found.slice( 0, 8 );
+						active = 0;
+						render( null );
+					}
+				}, 140 );
+			},
+			key( e ) {
+				if ( ! el ) {
+					return false;
+				}
+				if ( e.key === 'ArrowDown' || e.key === 'ArrowUp' ) {
+					if ( items.length ) {
+						active = ( active + ( e.key === 'ArrowDown' ? 1 : -1 ) + items.length ) % items.length;
+						render( null );
+					}
+					return true;
+				}
+				if ( ( e.key === 'Enter' || e.key === 'Tab' ) && items[ active ] ) {
+					editor.insertLinkFromQuery( items[ active ].url, items[ active ].title );
+					return true;
+				}
+				if ( e.key === 'Escape' ) {
+					editor.closeLinkQuery();
+					return true;
+				}
+				return false;
+			},
+		};
+	} )();
+
+	/** Links to other notes open in the app instead of a new tab. */
+	function openInternalLink( href ) {
+		try {
+			const url = new URL( href, window.location.href );
+			const app = new URL( data.urls.app, window.location.href );
+			const id = Number( url.searchParams.get( 'note' ) );
+			if ( id && url.origin === app.origin && url.pathname === app.pathname && url.searchParams.get( 'page' ) === app.searchParams.get( 'page' ) ) {
+				goToNote( id );
+				return true;
+			}
+		} catch ( err ) {}
+		return false;
+	}
+
 	/* Link editor ----------------------------------------------------------------------------- */
 
 	function openLinkEditor() {
@@ -2846,13 +2988,67 @@
 				'</div></form>',
 			{ label: __( 'Link', 'noteflow' ), className: 'nf-link-pop' }
 		);
+		const urlInput = pop.querySelector( '[name="url"]' );
+		const textInput = pop.querySelector( '[name="text"]' );
+		const list = document.createElement( 'ul' );
+		list.className = 'nf-link-results';
+		list.setAttribute( 'role', 'listbox' );
+		urlInput.closest( '.nf-field' ).after( list );
+		urlInput.setAttribute( 'placeholder', __( 'Search or paste a link', 'noteflow' ) );
+		let results = [];
+		let active = -1;
+
+		const looksLikeUrl = ( v ) => /^(https?:\/\/|www\.|mailto:|tel:|\/|#)/i.test( v ) || /^[^\s]+\.[a-z]{2,}(\/|$)/i.test( v );
+		const renderResults = () => {
+			list.innerHTML = results.map( ( item, i ) => linkItemHTML( item, i === active ) ).join( '' );
+			list.hidden = ! results.length;
+		};
+		const pick = ( item ) => {
+			UI.closePopover();
+			editor.setLink( item.url, textInput && ! textInput.value.trim() ? item.title : ( textInput ? textInput.value.trim() : '' ) );
+		};
+		const search = debounce( async () => {
+			const v = urlInput.value.trim();
+			if ( looksLikeUrl( v ) ) {
+				results = [];
+				renderResults();
+				return;
+			}
+			const found = await findLinks( v );
+			if ( found ) {
+				results = found.slice( 0, 8 );
+				active = results.length ? 0 : -1;
+				renderResults();
+			}
+		}, 160 );
+		urlInput.addEventListener( 'input', search );
+		urlInput.addEventListener( 'keydown', ( e ) => {
+			if ( ( e.key === 'ArrowDown' || e.key === 'ArrowUp' ) && results.length ) {
+				e.preventDefault();
+				active = ( active + ( e.key === 'ArrowDown' ? 1 : -1 ) + results.length ) % results.length;
+				renderResults();
+			} else if ( e.key === 'Enter' && results[ active ] && ! looksLikeUrl( urlInput.value.trim() ) ) {
+				e.preventDefault();
+				pick( results[ active ] );
+			}
+		} );
+		list.addEventListener( 'mousedown', ( e ) => {
+			const btn = e.target.closest( '[data-url]' );
+			if ( btn ) {
+				e.preventDefault();
+				pick( results.find( ( item ) => item.url === btn.dataset.url ) || { url: btn.dataset.url, title: btn.dataset.title } );
+			}
+		} );
+		if ( ! st.link ) {
+			search();
+		}
+
 		pop.querySelector( 'form' ).addEventListener( 'submit', ( e ) => {
 			e.preventDefault();
-			const url = pop.querySelector( '[name="url"]' ).value.trim();
-			const text = pop.querySelector( '[name="text"]' );
+			const url = urlInput.value.trim();
 			UI.closePopover();
 			if ( url ) {
-				editor.setLink( url, text ? text.value.trim() : '' );
+				editor.setLink( url, textInput ? textInput.value.trim() : '' );
 			}
 		} );
 		const unlink = pop.querySelector( '[data-unlink]' );

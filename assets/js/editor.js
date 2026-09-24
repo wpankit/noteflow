@@ -20,6 +20,20 @@
 	const isMac = /Mac|iPhone|iPad/.test( navigator.platform || navigator.userAgent );
 
 	/**
+	 * Removes the inline styles Chrome adds around inserted HTML, and the spans left bare.
+	 *
+	 * @param {Element} el Element to clean, in place.
+	 */
+	function stripStyles( el ) {
+		el.querySelectorAll( '[style]' ).forEach( ( node ) => node.removeAttribute( 'style' ) );
+		el.querySelectorAll( 'span:not([class])' ).forEach( ( span ) => {
+			if ( ! span.attributes.length ) {
+				span.replaceWith( ...span.childNodes );
+			}
+		} );
+	}
+
+	/**
 	 * Cleans pasted HTML down to what notes support.
 	 *
 	 * @param {string} html Pasted HTML.
@@ -189,6 +203,9 @@
 					onUpload: null,
 					onLink: null,
 					onExitStart: null,
+					onLinkQuery: null,
+					onLinkKey: null,
+					onOpenLink: null,
 				},
 				options || {}
 			);
@@ -228,6 +245,11 @@
 				if ( sel.rangeCount && root.contains( sel.anchorNode ) ) {
 					this.lastRange = sel.getRangeAt( 0 ).cloneRange();
 					this.opts.onSelection( this.state() );
+					if ( this.linkQuery ) {
+						this.checkLinkTrigger();
+					}
+				} else if ( this.linkQuery ) {
+					this.closeLinkQuery();
 				}
 			} );
 		}
@@ -528,8 +550,22 @@
 
 		/** Inline HTML of a block, as list item or new block content. */
 		inner( block ) {
-			const html = block.innerHTML.trim();
+			const clone = block.cloneNode( true );
+			stripStyles( clone );
+			const html = clone.innerHTML.trim();
 			return html === '' ? '<br>' : html;
+		}
+
+		/** Cleans up after an insert: inline styles and bare spans in the block at the caret. */
+		tidy() {
+			const range = this.range();
+			const top = range ? this.topBlock( range.startContainer ) : null;
+			if ( ! top || ! top.querySelector( '[style]' ) ) {
+				return;
+			}
+			const caret = this.getCaret();
+			stripStyles( top );
+			this.setCaret( caret );
 		}
 
 		/** Turns list items into blocks of the given tag, splitting the list around them. */
@@ -693,6 +729,7 @@
 			}
 			this.restoreRange();
 			document.execCommand( 'insertHTML', false, html );
+			this.tidy();
 			this.changed();
 		}
 
@@ -827,6 +864,7 @@
 			} else {
 				document.execCommand( 'createLink', false, url );
 			}
+			this.tidy();
 			this.changed();
 		}
 
@@ -850,10 +888,63 @@
 				this.focus( 'start' );
 			}
 			this.changed();
+			this.checkLinkTrigger();
+		}
+
+		/* Link suggestions: typing [[ opens a list of notes and content to link to. */
+
+		checkLinkTrigger() {
+			if ( ! this.opts.onLinkQuery || this.readOnly ) {
+				return;
+			}
+			const range = this.range();
+			const node = range && range.collapsed ? range.startContainer : null;
+			const match = node && node.nodeType === 3 ? node.nodeValue.slice( 0, range.startOffset ).match( /\[\[([^\[\]\n]{0,60})$/ ) : null;
+			if ( ! match || this.closest( 'pre,code' ) ) {
+				if ( this.linkQuery ) {
+					this.closeLinkQuery();
+				}
+				return;
+			}
+			this.linkQuery = { node, start: range.startOffset - match[ 0 ].length, end: range.startOffset, query: match[ 1 ] };
+			const rects = range.getClientRects();
+			const rect = rects.length ? rects[ rects.length - 1 ] : node.parentNode.getBoundingClientRect();
+			this.opts.onLinkQuery( { query: match[ 1 ], rect } );
+		}
+
+		closeLinkQuery() {
+			this.linkQuery = null;
+			if ( this.opts.onLinkQuery ) {
+				this.opts.onLinkQuery( null );
+			}
+		}
+
+		/** Replaces the typed [[query with a link. */
+		insertLinkFromQuery( url, title ) {
+			const q = this.linkQuery;
+			if ( ! q || ! this.root.contains( q.node ) ) {
+				this.closeLinkQuery();
+				return;
+			}
+			this.root.focus();
+			const range = document.createRange();
+			range.setStart( q.node, Math.min( q.start, q.node.length ) );
+			range.setEnd( q.node, Math.min( q.end, q.node.length ) );
+			const sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange( range );
+			document.execCommand( 'insertHTML', false, '<a href="' + escapeHtml( url ) + '">' + escapeHtml( title ) + '</a>&nbsp;' );
+			this.tidy();
+			this.closeLinkQuery();
+			this.changed();
 		}
 
 		onKeyDown( e ) {
 			if ( this.readOnly || this.composing ) {
+				return;
+			}
+			if ( this.linkQuery && this.opts.onLinkKey && this.opts.onLinkKey( e ) ) {
+				e.preventDefault();
 				return;
 			}
 			const mod = isMac ? e.metaKey : e.ctrlKey;
@@ -1090,6 +1181,9 @@
 			const link = e.target.closest && e.target.closest( 'a[href]' );
 			if ( link && this.root.contains( link ) && ( this.readOnly || e.metaKey || e.ctrlKey ) ) {
 				e.preventDefault();
+				if ( this.opts.onOpenLink && this.opts.onOpenLink( link.href ) ) {
+					return;
+				}
 				window.open( link.href, '_blank', 'noopener,noreferrer' );
 			}
 		}
@@ -1128,6 +1222,7 @@
 					document.execCommand( 'insertText', false, text );
 				}
 			}
+			this.tidy();
 			this.changed();
 		}
 
