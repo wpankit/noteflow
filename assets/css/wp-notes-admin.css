@@ -1,0 +1,377 @@
+.wp-notes-app {
+    display: flex;
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    min-height: 600px;
+}
+
+.wp-notes-sidebar {
+    width: 300px;
+    border-right: 1px solid #ddd;
+    background: #f7f7f7;
+}
+
+.wp-notes-search {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.wp-notes-search input {
+    width: 100%;
+    padding: 8px;
+}
+
+.wp-notes-list {
+    overflow-y: auto;
+    height: calc(100% - 65px);
+}
+
+.wp-notes-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.wp-notes-toolbar {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wp-notes-editor {
+    flex: 1;
+    padding: 20px;
+}
+
+.note-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.note-item h3{
+    margin: 0.5em 0;
+}
+
+.note-item p{
+    margin: 0.5em 0;
+    text-align: right;
+    font-style: italic;
+    font-size: 11px;
+}
+
+.note-item:hover {
+    background: #f0f0f0;
+}
+
+.note-item.active {
+    background: #fff;
+}
+
+.note-item.pinned {
+    background: #fff8e1;
+}
+
+#wp-notes-app {
+    display: flex;
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    min-height: 600px;
+}
+
+.wp-notes-sidebar {
+    width: 300px;
+    border-right: 1px solid #ddd;
+    padding: 15px;
+}
+
+.wp-notes-search {
+    margin-bottom: 15px;
+}
+
+.wp-notes-search input {
+    width: 100%;
+    padding: 8px;
+}
+
+.new-note-btn {
+    width: 100%;
+    margin-bottom: 15px !important;
+}
+
+#notes-list {
+    overflow-y: auto;
+}
+
+.note-item {
+    padding: 0px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.note-item:hover {
+    background: #f9f9f9;
+}
+
+.wp-notes-content {
+    flex: 1;
+    padding: 20px;
+}
+
+#note-title {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.note-actions {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.delete-note-btn {
+    margin-left: 10px !important;
+}
+
+/* Note Controls Styling */
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+.title-section {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.note-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Color Picker Styling */
+.color-picker-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.wp-picker-container {
+    position: relative;
+}
+
+.wp-picker-container .wp-color-result.button {
+    margin: 0;
+    height: 30px;
+}
+
+/* Pin Button Styling */
+.pin-note-btn {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pin-note-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.pin-note-btn.pinned {
+    background: #2271b1 !important;
+    color: white !important;
+}
+
+.pin-note-btn.pinned .dashicons {
+    transform: rotate(-45deg);
+}
+
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* Loading state */
+#notes-list.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Empty state */
+.no-notes {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Search input styling */
+#notes-search {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#notes-search:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+
+/* Pin Button Styling */
+/* Pin Button States */
+.pin-button {
+    position: relative;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.pin-button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    transition: all 0.2s ease;
+    color: #666;
+}
+
+.pin-button.pinned {
+    background: #2271b1 !important;
+    border-color: #2271b1 !important;
+}
+
+.pin-button.pinned .dashicons {
+    color: #fff;
+    transform: rotate(-45deg);
+}
+
+/* Pinned Note in List */
+.note-item.pinned {
+    border-left: 4px solid #2271b1;
+    background-color: #f0f6fc;
+}
+
+.note-item .pin-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #2271b1;
+    transform: rotate(-45deg);
+}
+
+/* Loading State */
+.note-item.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Pinned Note in List */
+.note-item.pinned {
+    border-left: 4px solid #2271b1;
+    background-color: #f0f6fc;
+}
+
+.note-item .pin-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #2271b1;
+    transform: rotate(-45deg);
+}
+
+/* Loading State */
+.note-item.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Note List Item Styling */
+.note-item {
+    position: relative;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.note-item.pinned {
+    border-left: 4px solid #2271b1;
+    background-color: #f0f6fc;
+}
+
+.note-item .pin-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #2271b1;
+}
+
+.note-item:hover {
+    border-color: #2271b1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Note Controls Layout */
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.title-section {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.note-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#note-title {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#note-title:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
