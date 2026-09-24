@@ -14,6 +14,15 @@
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 /**
+ * Per-person settings NoteFlow keeps, as user options.
+ *
+ * @return string[]
+ */
+function noteflow_uninstall_user_keys() {
+	return array( 'noteflow_folders', 'noteflow_filed', 'noteflow_pins', 'noteflow_prefs', 'noteflow_notifications', 'noteflow_welcomed', 'noteflow_review', 'noteflow_upgrade_seen' );
+}
+
+/**
  * Removes NoteFlow's data from the current site, if the site asked for that.
  *
  * @return bool Whether the data was deleted.
@@ -53,6 +62,11 @@ function noteflow_uninstall_site() {
 	delete_option( 'noteflow_db_version' );
 	delete_option( 'noteflow_legacy_notes' );
 
+	// Each person's folders, pins, preferences and notifications on this site.
+	foreach ( noteflow_uninstall_user_keys() as $key ) {
+		delete_metadata( 'user', 0, $wpdb->get_blog_prefix() . $key, '', true );
+	}
+
 	// Presence lists for open notes.
 	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\\_transient\\_noteflow\\_presence\\_%' OR option_name LIKE '\\_transient\\_timeout\\_noteflow\\_presence\\_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
@@ -75,10 +89,9 @@ if ( is_multisite() ) {
 	$noteflow_deleted = noteflow_uninstall_site();
 }
 
-// Folders, pins, preferences and notifications are user meta, shared by every site in a
-// network, so they go only when every site's notes have gone.
+// Keys without a site prefix, from development versions of 2.0, go once every site's data has gone.
 if ( $noteflow_deleted ) {
-	foreach ( array( 'noteflow_folders', 'noteflow_filed', 'noteflow_pins', 'noteflow_prefs', 'noteflow_notifications', 'noteflow_welcomed', 'noteflow_review', 'noteflow_upgrade_seen' ) as $noteflow_key ) {
+	foreach ( noteflow_uninstall_user_keys() as $noteflow_key ) {
 		delete_metadata( 'user', 0, $noteflow_key, '', true );
 	}
 }

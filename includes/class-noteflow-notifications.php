@@ -23,7 +23,7 @@ class NoteFlow_Notifications {
 	 * @return array[]
 	 */
 	public static function all( $user_id ) {
-		$items = get_user_meta( $user_id, self::META, true );
+		$items = get_user_option( self::META, $user_id );
 		return is_array( $items ) ? array_values( $items ) : array();
 	}
 
@@ -71,7 +71,7 @@ class NoteFlow_Notifications {
 				'read'  => false,
 			)
 		);
-		update_user_meta( $user_id, self::META, array_slice( $items, 0, self::LIMIT ) );
+		update_user_option( $user_id, self::META, array_slice( $items, 0, self::LIMIT ) );
 
 		self::email( $user_id, $type, $note_id, $actor_id, $text );
 	}
@@ -89,7 +89,7 @@ class NoteFlow_Notifications {
 				$items[ $i ]['read'] = true;
 			}
 		}
-		update_user_meta( $user_id, self::META, $items );
+		update_user_option( $user_id, self::META, $items );
 	}
 
 	/**

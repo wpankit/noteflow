@@ -147,8 +147,8 @@ class NoteFlow_Admin {
 		$new    = ! empty( $_GET['new'] );
 		// phpcs:enable
 
-		$review = get_user_meta( $uid, 'noteflow_review', true );
-		$first  = (int) get_user_meta( $uid, 'noteflow_welcomed', true );
+		$review = get_user_option( 'noteflow_review', $uid );
+		$first  = (int) get_user_option( 'noteflow_welcomed', $uid );
 
 		return array_merge(
 			NoteFlow_REST::bootstrap( $uid ),
@@ -174,7 +174,7 @@ class NoteFlow_Admin {
 					'new'    => $new,
 				),
 				'notices'  => array(
-					'upgrade' => (int) get_option( NoteFlow_Upgrade::LEGACY_OPTION, 0 ) > 0 && NOTEFLOW_VERSION !== get_user_meta( $uid, 'noteflow_upgrade_seen', true ),
+					'upgrade' => (int) get_option( NoteFlow_Upgrade::LEGACY_OPTION, 0 ) > 0 && NOTEFLOW_VERSION !== get_user_option( 'noteflow_upgrade_seen', $uid ),
 					'review'  => 'done' !== $review && ( ! $review || time() - (int) $review > 30 * DAY_IN_SECONDS ) && $first && time() - $first > 7 * DAY_IN_SECONDS,
 				),
 				'urls'     => array(

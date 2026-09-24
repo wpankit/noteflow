@@ -1017,8 +1017,7 @@ class NoteFlow_REST {
 		$search = trim( sanitize_text_field( (string) $request->get_param( 'search' ) ) );
 		$args   = array(
 			'role__in' => NoteFlow_Access::allowed_roles(),
-			'exclude'  => array( get_current_user_id() ),
-			'number'   => 20,
+			'number'   => 21,
 			'orderby'  => 'display_name',
 			'fields'   => 'ID',
 		);
@@ -1027,8 +1026,14 @@ class NoteFlow_REST {
 			$args['search_columns'] = array( 'display_name', 'user_login', 'user_nicename' );
 		}
 
-		$ids = array_filter( array_map( 'intval', get_users( $args ) ), array( 'NoteFlow_Access', 'can_use' ) );
-		return array( 'people' => array_values( NoteFlow_Notes::people( $ids ) ) );
+		$me  = get_current_user_id();
+		$ids = array_filter(
+			array_map( 'intval', get_users( $args ) ),
+			function ( $id ) use ( $me ) {
+				return $id !== $me && NoteFlow_Access::can_use( $id );
+			}
+		);
+		return array( 'people' => array_values( NoteFlow_Notes::people( array_slice( $ids, 0, 20 ) ) ) );
 	}
 
 	/**
@@ -1120,9 +1125,9 @@ class NoteFlow_REST {
 		$uid  = get_current_user_id();
 
 		if ( 'upgrade' === $what ) {
-			update_user_meta( $uid, 'noteflow_upgrade_seen', NOTEFLOW_VERSION );
+			update_user_option( $uid, 'noteflow_upgrade_seen', NOTEFLOW_VERSION );
 		} elseif ( 'review' === $what ) {
-			update_user_meta( $uid, 'noteflow_review', $request->get_param( 'later' ) ? time() : 'done' );
+			update_user_option( $uid, 'noteflow_review', $request->get_param( 'later' ) ? time() : 'done' );
 		}
 		return array( 'ok' => true );
 	}

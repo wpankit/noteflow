@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       NoteFlow
+ * Plugin Name:       NoteFlow – Notes, Checklists & Team Collaboration
  * Plugin URI:        https://wordpress.org/plugins/noteflow/
  * Description:       A calm, fast notes app inside WordPress admin. Folders, checklists, tags, reminders, and notes you can share and edit together with your team.
  * Version:           2.0.0

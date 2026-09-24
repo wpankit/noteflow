@@ -122,25 +122,41 @@ class NoteFlow_Notes {
 			return array();
 		}
 
-		$shared = '';
-		$args   = array( self::POST_TYPE, $user_id );
+		$sharing  = NoteFlow_Access::sharing_enabled() ? 1 : 0;
+		$everyone = NoteFlow_Access::everyone_enabled() ? 1 : 0;
 
-		if ( NoteFlow_Access::sharing_enabled() ) {
-			$everyone = NoteFlow_Access::everyone_enabled() ? " OR ( m.meta_key = '" . NoteFlow_Access::EVERYONE . "' AND m.meta_value IN ( 'view', 'edit' ) )" : '';
-			$shared   = " OR EXISTS ( SELECT 1 FROM {$wpdb->postmeta} m WHERE m.post_id = p.ID AND ( ( m.meta_key IN ( '" . NoteFlow_Access::SHARE_VIEW . "', '" . NoteFlow_Access::SHARE_EDIT . "' ) AND m.meta_value = %s ){$everyone} ) )";
-			$args[]   = (string) $user_id;
-		}
-
-		$trash = '';
-		if ( $with_trash ) {
-			$trash  = " OR ( p.post_status = 'trash' AND p.post_author = %d )";
-			$args[] = $user_id;
-		}
-
-		$sql = "SELECT p.ID FROM {$wpdb->posts} p WHERE p.post_type = %s AND ( ( p.post_status = 'publish' AND ( p.post_author = %d{$shared} ) ){$trash} ) ORDER BY p.post_modified_gmt DESC, p.ID DESC";
-
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery -- Built above from constants; every value is a placeholder.
-		$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare( $sql, $args ) ) );
+		// One static query; the switches turn shared notes and Recently Deleted on or off.
+		$ids = array_map(
+			'intval',
+			$wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				$wpdb->prepare(
+					"SELECT p.ID FROM {$wpdb->posts} p
+					WHERE p.post_type = %s AND (
+						( p.post_status = 'publish' AND (
+							p.post_author = %d
+							OR ( %d = 1 AND EXISTS (
+								SELECT 1 FROM {$wpdb->postmeta} m WHERE m.post_id = p.ID AND (
+									( m.meta_key IN ( %s, %s ) AND m.meta_value = %s )
+									OR ( %d = 1 AND m.meta_key = %s AND m.meta_value IN ( 'view', 'edit' ) )
+								)
+							) )
+						) )
+						OR ( %d = 1 AND p.post_status = 'trash' AND p.post_author = %d )
+					)
+					ORDER BY p.post_modified_gmt DESC, p.ID DESC",
+					self::POST_TYPE,
+					$user_id,
+					$sharing,
+					NoteFlow_Access::SHARE_VIEW,
+					NoteFlow_Access::SHARE_EDIT,
+					(string) $user_id,
+					$everyone,
+					NoteFlow_Access::EVERYONE,
+					$with_trash ? 1 : 0,
+					$user_id
+				)
+			)
+		);
 
 		self::$ids_cache[ $key ] = $ids;
 		return $ids;
@@ -868,10 +884,10 @@ class NoteFlow_Notes {
 	 * @param int $user_id User ID.
 	 */
 	public static function maybe_create_welcome( $user_id ) {
-		if ( get_user_meta( $user_id, 'noteflow_welcomed', true ) ) {
+		if ( get_user_option( 'noteflow_welcomed', $user_id ) ) {
 			return;
 		}
-		update_user_meta( $user_id, 'noteflow_welcomed', time() );
+		update_user_option( $user_id, 'noteflow_welcomed', time() );
 
 		$owned = get_posts(
 			array(

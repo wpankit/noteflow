@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Per-user state, kept in user meta.
+ * Per-user state, kept as user options, so each site in a network has its own.
  *
  * Folders and pins are personal: when a note is shared, each person files and pins
  * it in their own way, the way shared notes work in most notes apps.
@@ -29,7 +29,7 @@ class NoteFlow_User_State {
 	 * @return array<int,array{id:string,name:string}>
 	 */
 	public static function folders( $user_id ) {
-		$folders = get_user_meta( $user_id, self::FOLDERS, true );
+		$folders = get_user_option( self::FOLDERS, $user_id );
 		$clean   = array();
 		foreach ( is_array( $folders ) ? $folders : array() as $folder ) {
 			if ( isset( $folder['id'], $folder['name'] ) && is_string( $folder['id'] ) ) {
@@ -97,7 +97,7 @@ class NoteFlow_User_State {
 			'name' => $name,
 		);
 		$folders[] = $folder;
-		update_user_meta( $user_id, self::FOLDERS, $folders );
+		update_user_option( $user_id, self::FOLDERS, $folders );
 
 		return $folder;
 	}
@@ -132,7 +132,7 @@ class NoteFlow_User_State {
 			return new WP_Error( 'noteflow_folder_missing', __( 'That folder no longer exists.', 'noteflow' ), array( 'status' => 404 ) );
 		}
 
-		update_user_meta( $user_id, self::FOLDERS, $folders );
+		update_user_option( $user_id, self::FOLDERS, $folders );
 		return true;
 	}
 
@@ -151,7 +151,7 @@ class NoteFlow_User_State {
 				}
 			)
 		);
-		update_user_meta( $user_id, self::FOLDERS, $folders );
+		update_user_option( $user_id, self::FOLDERS, $folders );
 
 		$filed = array_filter(
 			self::filed( $user_id ),
@@ -159,7 +159,7 @@ class NoteFlow_User_State {
 				return $id !== $folder_id;
 			}
 		);
-		update_user_meta( $user_id, self::FILED, $filed );
+		update_user_option( $user_id, self::FILED, $filed );
 	}
 
 	/**
@@ -182,7 +182,7 @@ class NoteFlow_User_State {
 				unset( $byid[ $id ] );
 			}
 		}
-		update_user_meta( $user_id, self::FOLDERS, array_merge( $sorted, array_values( $byid ) ) );
+		update_user_option( $user_id, self::FOLDERS, array_merge( $sorted, array_values( $byid ) ) );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class NoteFlow_User_State {
 	 * @return array<int,string> Note ID => folder ID.
 	 */
 	public static function filed( $user_id ) {
-		$filed = get_user_meta( $user_id, self::FILED, true );
+		$filed = get_user_option( self::FILED, $user_id );
 		$clean = array();
 		foreach ( is_array( $filed ) ? $filed : array() as $note_id => $folder_id ) {
 			if ( (int) $note_id > 0 && is_string( $folder_id ) && '' !== $folder_id ) {
@@ -223,7 +223,7 @@ class NoteFlow_User_State {
 			$filed[ $note_id ] = $folder_id;
 		}
 
-		update_user_meta( $user_id, self::FILED, $filed );
+		update_user_option( $user_id, self::FILED, $filed );
 		return true;
 	}
 
@@ -234,7 +234,7 @@ class NoteFlow_User_State {
 	 * @return int[]
 	 */
 	public static function pins( $user_id ) {
-		$pins = get_user_meta( $user_id, self::PINS, true );
+		$pins = get_user_option( self::PINS, $user_id );
 		return array_values( array_unique( array_filter( array_map( 'intval', is_array( $pins ) ? $pins : array() ) ) ) );
 	}
 
@@ -250,7 +250,7 @@ class NoteFlow_User_State {
 		if ( $pinned ) {
 			array_unshift( $pins, (int) $note_id );
 		}
-		update_user_meta( $user_id, self::PINS, array_values( $pins ) );
+		update_user_option( $user_id, self::PINS, array_values( $pins ) );
 	}
 
 	/**
@@ -272,13 +272,13 @@ class NoteFlow_User_State {
 			)
 		);
 		if ( count( $kept ) !== count( $pins ) ) {
-			update_user_meta( $user_id, self::PINS, $kept );
+			update_user_option( $user_id, self::PINS, $kept );
 		}
 
 		$filed = self::filed( $user_id );
 		$kept  = array_intersect_key( $filed, $keep );
 		if ( count( $kept ) !== count( $filed ) ) {
-			update_user_meta( $user_id, self::FILED, $kept );
+			update_user_option( $user_id, self::FILED, $kept );
 		}
 	}
 
@@ -305,7 +305,7 @@ class NoteFlow_User_State {
 	 * @return array
 	 */
 	public static function prefs( $user_id ) {
-		$prefs = get_user_meta( $user_id, self::PREFS, true );
+		$prefs = get_user_option( self::PREFS, $user_id );
 		return array_merge( self::default_prefs(), is_array( $prefs ) ? $prefs : array() );
 	}
 
@@ -335,7 +335,7 @@ class NoteFlow_User_State {
 			}
 		}
 
-		update_user_meta( $user_id, self::PREFS, $prefs );
+		update_user_option( $user_id, self::PREFS, $prefs );
 		return $prefs;
 	}
 }
