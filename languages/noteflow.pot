@@ -1,0 +1,2347 @@
+# Copyright (C) 2026 WPAnkit
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: NoteFlow – Notes, Checklists & Team Collaboration 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/noteflow\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-24T16:24:28+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: noteflow\n"
+
+#. Plugin Name of the plugin
+msgid "NoteFlow – Notes, Checklists & Team Collaboration"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/noteflow/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A calm, fast notes app inside WordPress admin. Folders, checklists, tags, reminders, and notes you can share and edit together with your team."
+msgstr ""
+
+#. Author of the plugin
+msgid "WPAnkit"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpankit.com/"
+msgstr ""
+
+#: includes/class-noteflow-admin-assets.php:73
+#: includes/class-noteflow-notes.php:575
+#: includes/class-noteflow-notifications.php:125
+#: includes/class-noteflow-rest.php:1078
+#: includes/class-noteflow-rest.php:1162
+msgid "(no title)"
+msgstr ""
+
+#. translators: %s: date and time.
+#: includes/class-noteflow-admin-assets.php:85
+msgctxt "reminder date and time"
+msgid "Reminder: %s"
+msgstr ""
+
+#. translators: %s: time since, like "5 mins".
+#: includes/class-noteflow-admin-assets.php:88
+#: includes/modules/class-noteflow-module-toolbar-notifications.php:126
+#: assets/js/discussions.js:348
+msgid "%s ago"
+msgstr ""
+
+#: includes/class-noteflow-admin-assets.php:97
+#: includes/class-noteflow-notifications.php:232
+#: includes/class-noteflow-notifications.php:300
+#: includes/class-noteflow-rest.php:1118
+#: assets/js/app.js:102
+#: assets/js/app.js:438
+#: assets/js/app.js:566
+#: assets/js/app.js:840
+#: assets/js/app.js:2665
+#: assets/js/app.js:3731
+#: assets/js/discussions.js:346
+#: assets/js/quick.js:54
+msgid "New Note"
+msgstr ""
+
+#: includes/class-noteflow-admin.php:59
+#: includes/modules/class-noteflow-module-dashboard.php:28
+#: includes/modules/class-noteflow-module-discussions.php:626
+#: includes/modules/class-noteflow-module-discussions.php:701
+#: assets/js/block-editor.js:287
+#: assets/js/block-editor.js:291
+msgid "NoteFlow"
+msgstr ""
+
+#: includes/class-noteflow-admin.php:60
+#: assets/js/app.js:283
+#: assets/js/app.js:394
+msgid "All Notes"
+msgstr ""
+
+#: includes/class-noteflow-admin.php:103
+#: includes/class-noteflow-notes.php:918
+#: includes/class-noteflow-settings.php:310
+#: includes/modules/class-noteflow-module-dashboard.php:104
+#: includes/modules/class-noteflow-module-toolbar-notifications.php:154
+#: assets/js/discussions.js:149
+#: assets/js/quick.js:110
+msgid "Open NoteFlow"
+msgstr ""
+
+#: includes/class-noteflow-admin.php:106
+#: includes/class-noteflow-settings.php:242
+msgid "Settings"
+msgstr ""
+
+#: includes/class-noteflow-admin.php:195
+msgid "Loading NoteFlow…"
+msgstr ""
+
+#: includes/class-noteflow-admin.php:197
+msgid "NoteFlow needs JavaScript. Turn it on in your browser to use your notes."
+msgstr ""
+
+#: includes/class-noteflow-comments.php:75
+#: includes/modules/class-noteflow-module-discussions.php:313
+#: includes/modules/class-noteflow-module-discussions.php:450
+msgid "Write something first."
+msgstr ""
+
+#: includes/class-noteflow-comments.php:99
+#: includes/modules/class-noteflow-module-discussions.php:339
+msgid "The comment could not be saved."
+msgstr ""
+
+#: includes/class-noteflow-comments.php:124
+msgid "That comment no longer exists."
+msgstr ""
+
+#: includes/class-noteflow-comments.php:130
+#: includes/modules/class-noteflow-module-discussions.php:422
+#: includes/modules/class-noteflow-module-discussions.php:509
+msgid "You can only delete your own comments."
+msgstr ""
+
+#: includes/class-noteflow-notes.php:575
+msgid "A private item"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:665
+#: includes/class-noteflow-rest.php:122
+msgid "This note does not exist, or it is no longer shared with you."
+msgstr ""
+
+#: includes/class-noteflow-notes.php:757
+msgid "This note changed while you were editing it."
+msgstr ""
+
+#: includes/class-noteflow-notes.php:916
+msgid "NoteFlow keeps your notes, checklists and ideas right inside WordPress. A few things to try:"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:919
+msgid "Create a note with the compose button, or press N"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:920
+msgid "Type [] and a space to start a checklist like this one"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:921
+msgid "Add a #tag anywhere in a note to group it with others"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:922
+msgid "Share a note with your team from the Share button"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:924
+#: assets/js/app.js:2827
+msgid "Formatting"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:925
+msgid "Use the Aa menu for titles, headings, lists and monospaced text. Shortcuts work as you type, too:"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:926
+msgid "heading"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:926
+msgid "bulleted list"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:926
+msgid "numbered list"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:926
+msgid "quote"
+msgstr ""
+
+#: includes/class-noteflow-notes.php:927
+msgid "Press ? at any time to see every keyboard shortcut."
+msgstr ""
+
+#: includes/class-noteflow-notes.php:932
+msgid "Welcome to NoteFlow"
+msgstr ""
+
+#: includes/class-noteflow-notifications.php:231
+#: includes/class-noteflow-notifications.php:299
+#: assets/js/app.js:97
+#: assets/js/discussions.js:108
+msgid "Someone"
+msgstr ""
+
+#. translators: 1: person's name, 2: note title.
+#: includes/class-noteflow-notifications.php:237
+#: includes/class-noteflow-notifications.php:315
+#: assets/js/app.js:2669
+msgid "%1$s shared “%2$s” with you"
+msgstr ""
+
+#. translators: 1: person's name, 2: note title.
+#: includes/class-noteflow-notifications.php:240
+#: includes/class-noteflow-notifications.php:324
+#: assets/js/app.js:2672
+msgid "%1$s mentioned you in “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: note title.
+#: includes/class-noteflow-notifications.php:243
+#: includes/class-noteflow-notifications.php:329
+#: assets/js/app.js:2675
+msgid "%1$s commented on “%2$s”"
+msgstr ""
+
+#. translators: %s: note title.
+#: includes/class-noteflow-notifications.php:246
+#: assets/js/app.js:2678
+msgid "Reminder: “%s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: post title.
+#: includes/class-noteflow-notifications.php:249
+msgctxt "a post"
+msgid "%1$s commented on “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: post title.
+#: includes/class-noteflow-notifications.php:252
+msgid "%1$s raised an issue on “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: post title.
+#: includes/class-noteflow-notifications.php:255
+msgid "%1$s replied in a discussion on “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: post title.
+#: includes/class-noteflow-notifications.php:258
+msgid "%1$s mentioned you on “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: post title.
+#: includes/class-noteflow-notifications.php:261
+msgid "%1$s assigned you an issue on “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: post title.
+#: includes/class-noteflow-notifications.php:264
+msgid "%1$s resolved your comment on “%2$s”"
+msgstr ""
+
+#. translators: 1: person's name, 2: note title.
+#: includes/class-noteflow-notifications.php:318
+msgid "%1$s shared the note “%2$s” with you. You can view and edit it."
+msgstr ""
+
+#. translators: 1: person's name, 2: note title.
+#: includes/class-noteflow-notifications.php:320
+msgid "%1$s shared the note “%2$s” with you. You can view it and comment."
+msgstr ""
+
+#. translators: %s: note title.
+#: includes/class-noteflow-notifications.php:334
+msgid "Reminder: %s"
+msgstr ""
+
+#. translators: %s: note title.
+#: includes/class-noteflow-notifications.php:336
+msgid "You asked NoteFlow to remind you about “%s”."
+msgstr ""
+
+#: includes/class-noteflow-notifications.php:342
+msgid "Open the discussion:"
+msgstr ""
+
+#: includes/class-noteflow-notifications.php:342
+msgid "Open the note:"
+msgstr ""
+
+#. translators: %s: site name.
+#: includes/class-noteflow-notifications.php:344
+msgid "NoteFlow on %s"
+msgstr ""
+
+#: includes/class-noteflow-notifications.php:345
+msgid "You can turn these emails off in NoteFlow, under Preferences."
+msgstr ""
+
+#: includes/class-noteflow-post-type.php:43
+#: includes/modules/class-noteflow-module-content-notes.php:46
+#: assets/js/app.js:101
+#: assets/js/app.js:136
+#: assets/js/app.js:141
+#: assets/js/app.js:286
+#: assets/js/app.js:400
+#: assets/js/app.js:616
+#: assets/js/app.js:2298
+#: assets/js/app.js:2360
+#: assets/js/app.js:2817
+#: assets/js/discussions.js:120
+#: assets/js/quick.js:103
+msgid "Notes"
+msgstr ""
+
+#: includes/class-noteflow-post-type.php:44
+#: includes/class-noteflow-rest.php:1119
+#: includes/modules/class-noteflow-module-quick-capture.php:51
+#: assets/js/app.js:207
+#: assets/js/quick.js:101
+msgid "Note"
+msgstr ""
+
+#: includes/class-noteflow-rest.php:102
+msgid "You are signed out. Sign in again to keep working."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:105
+msgid "You do not have access to NoteFlow."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:125
+msgid "You can view this note, but not change it."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:128
+msgid "Only the owner of this note can do that."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:131
+#: includes/class-noteflow-rest.php:506
+#: includes/class-noteflow-rest.php:714
+msgid "This note is in Recently Deleted. Recover it to make changes."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:142
+msgid "This feature is switched off in NoteFlow settings."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:275
+#: includes/class-noteflow-rest.php:330
+msgid "This note is too long to save."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:558
+msgid "You own this note. Delete it instead."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:612
+msgid "That version no longer exists."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:760
+msgid "Pick a time in the future."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:786
+msgid "You can only attach notes to content you can edit."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:1326
+msgid "That file has no notes in it."
+msgstr ""
+
+#: includes/class-noteflow-rest.php:1329
+msgid "Import up to 1,000 notes at a time."
+msgstr ""
+
+#: includes/class-noteflow-review.php:149
+#: assets/js/app.js:368
+msgid "Enjoying NoteFlow?"
+msgstr ""
+
+#. translators: %s: number of notes.
+#: includes/class-noteflow-review.php:152
+msgid "You have written %s note with it."
+msgid_plural "You have written %s notes with it."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-noteflow-review.php:154
+msgid "A quick review on WordPress.org takes a minute and helps other teams find NoteFlow."
+msgstr ""
+
+#: includes/class-noteflow-review.php:159
+#: includes/class-noteflow-settings.php:430
+msgid "Leave a review"
+msgstr ""
+
+#: includes/class-noteflow-review.php:160
+#: includes/class-noteflow-review.php:179
+#: includes/class-noteflow-review.php:198
+#: includes/class-noteflow-settings.php:431
+#: includes/class-noteflow-settings.php:434
+#: includes/class-noteflow-settings.php:450
+#: includes/class-noteflow-settings.php:463
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: includes/class-noteflow-review.php:162
+msgid "Maybe later"
+msgstr ""
+
+#: includes/class-noteflow-review.php:163
+msgid "I already did"
+msgstr ""
+
+#: includes/class-noteflow-review.php:179
+msgid "Rate NoteFlow"
+msgstr ""
+
+#. translators: %s: five-star rating link.
+#: includes/class-noteflow-review.php:197
+msgid "If NoteFlow helps your team, please rate it %s on WordPress.org. Thank you!"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:111
+msgid "Dashboard widget"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:112
+msgid "Jot down a quick note and see pinned notes and upcoming reminders on the Dashboard."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:116
+msgid "Quick capture"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:117
+msgid "A Note button in the toolbar, in the admin and on your site, to save an idea in seconds. Shortcut: Alt + Shift + N."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:121
+msgid "Toolbar notifications"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:122
+msgid "A bell in the toolbar shows new shares, mentions, comments and due reminders on every screen, with the latest ones a click away."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:126
+#: includes/modules/class-noteflow-module-dashboard.php:71
+#: assets/js/app.js:285
+#: assets/js/app.js:396
+msgid "Reminders"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:127
+msgid "Set a date and time on any note. NoteFlow lets you know in the app, and by email, when it is due."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:131
+msgid "Discussions on content"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:132
+msgid "Comment on posts and pages like a shared document: raise issues, assign them, @mention people, reply and resolve, right in the editor."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:136
+msgid "Content notes"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:137
+msgid "Attach notes to posts and pages and see them next to the content in the editor, so feedback stays with the work."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:141
+msgid "Templates"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:142
+msgid "Start notes from ready-made templates: meeting notes, content brief, bug report, launch checklist and more."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:146
+msgid "Import & export"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:147
+msgid "Download notes as Markdown or HTML, print them, and move all your notes between sites with a backup file."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:241
+#: includes/class-noteflow-settings.php:299
+#: assets/js/app.js:2771
+msgid "NoteFlow Settings"
+msgstr ""
+
+#. translators: %s: plugin version.
+#: includes/class-noteflow-settings.php:303
+msgid "Version %s"
+msgstr ""
+
+#. translators: %s: number of notes.
+#: includes/class-noteflow-settings.php:306
+msgid "%s note on this site"
+msgid_plural "%s notes on this site"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-noteflow-settings.php:320
+msgid "Who can use NoteFlow"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:321
+msgid "Everyone in these roles gets their own notes, which stay private until they share them. Administrators always have access."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:333
+msgid "Collaboration"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:334
+msgid "People can invite others to view or edit a note. Everyone sees who else is in the note, and changes sync on their own."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:337
+msgid "Sharing"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:337
+msgid "Let people share their notes with other NoteFlow users as viewers or editors."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:338
+msgid "Share with everyone"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:338
+msgid "Allow a note to be shared with everyone who can use NoteFlow, in one step."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:339
+msgid "Comments and mentions"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:339
+msgid "Discuss a note in its activity panel, and @mention people to let them know."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:340
+msgid "Email notifications"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:340
+msgid "Email people when a note is shared with them, when someone mentions them or comments on their post, and when a reminder is due. Each person can turn these off in NoteFlow."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:346
+msgid "Modules"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:347
+msgid "Switch off anything your team does not need. Nothing is deleted when a module is off."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:357
+msgid "Show NoteFlow in the editor for"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:358
+msgid "Discussions and content notes appear when editing these post types."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:369
+msgid "Data"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:371
+msgid "Delete all NoteFlow data when the plugin is deleted"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:371
+msgid "Removes every note, folder, comment and setting when you delete NoteFlow from the Plugins screen. This cannot be undone. Deactivating keeps everything."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:375
+msgid "Save Settings"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:396
+msgid "Privacy-first analytics inside WordPress"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:397
+msgid "See visitors and page views right in your dashboard, with no cookies and no external scripts."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:403
+msgid "Keep Google Sheets in sync with WordPress"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:404
+msgid "Send posts, users, form entries and WooCommerce orders to any spreadsheet."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:412
+msgid "Admin tools, security and performance in one plugin"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:418
+msgid "Hide the toolbar for the roles you choose"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:426
+msgid "NoteFlow is free, for good"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:427
+msgid "No upsells, no locked features. If NoteFlow helps your team, a short review on WordPress.org helps other people find it."
+msgstr ""
+
+#: includes/class-noteflow-settings.php:434
+msgid "Get help or suggest a feature"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:439
+msgid "More from the makers of NoteFlow"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:450
+msgid "Learn more"
+msgstr ""
+
+#: includes/class-noteflow-settings.php:454
+msgid "More free plugins on WordPress.org"
+msgstr ""
+
+#: includes/class-noteflow-user-state.php:86
+#: includes/class-noteflow-user-state.php:119
+msgid "Give the folder a name."
+msgstr ""
+
+#: includes/class-noteflow-user-state.php:89
+#: includes/class-noteflow-user-state.php:122
+msgid "You already have a folder with that name."
+msgstr ""
+
+#: includes/class-noteflow-user-state.php:92
+msgid "You have reached the folder limit."
+msgstr ""
+
+#: includes/class-noteflow-user-state.php:132
+#: includes/class-noteflow-user-state.php:221
+msgid "That folder no longer exists."
+msgstr ""
+
+#. translators: %s: post type name, like "post" or "page".
+#: includes/modules/class-noteflow-module-content-notes.php:110
+msgid "No notes on this %s yet. Notes you add here are private until you share them."
+msgstr ""
+
+#. translators: %s: post type name, like "post" or "page".
+#: includes/modules/class-noteflow-module-content-notes.php:110
+msgid "item"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-content-notes.php:114
+#: assets/js/app.js:2818
+#: assets/js/discussions.js:148
+msgid "New note"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-content-notes.php:115
+#: assets/js/discussions.js:148
+msgid "Add a note…"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-content-notes.php:117
+#: assets/js/discussions.js:149
+msgid "Add note"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-dashboard.php:72
+#: assets/js/app.js:589
+#: assets/js/app.js:595
+msgid "Pinned"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-dashboard.php:73
+msgid "Recent"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-dashboard.php:78
+#: assets/js/quick.js:93
+#: assets/js/quick.js:99
+msgid "Quick note"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-dashboard.php:79
+msgid "Jot something down…"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-dashboard.php:81
+msgid "Save note"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-dashboard.php:100
+msgid "Your notes will show up here. Write your first one above."
+msgstr ""
+
+#: includes/modules/class-noteflow-module-discussions.php:257
+msgid "You cannot discuss this item."
+msgstr ""
+
+#: includes/modules/class-noteflow-module-discussions.php:372
+#: includes/modules/class-noteflow-module-discussions.php:419
+#: includes/modules/class-noteflow-module-discussions.php:446
+msgid "That discussion no longer exists."
+msgstr ""
+
+#: includes/modules/class-noteflow-module-discussions.php:505
+msgid "That reply no longer exists."
+msgstr ""
+
+#: includes/modules/class-noteflow-module-discussions.php:639
+#: assets/js/app.js:3144
+#: assets/js/app.js:3166
+#: assets/js/discussions.js:287
+msgid "Loading…"
+msgstr ""
+
+#. translators: %s: number of open comments and issues.
+#: includes/modules/class-noteflow-module-discussions.php:724
+msgid "%s open comment or issue"
+msgid_plural "%s open comments and issues"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of open comments and issues.
+#: includes/modules/class-noteflow-module-discussions.php:726
+msgid "%s open"
+msgid_plural "%s open"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/modules/class-noteflow-module-quick-capture.php:54
+msgid "Quick note (Alt+Shift+N)"
+msgstr ""
+
+#. translators: %s: number of notifications.
+#: includes/modules/class-noteflow-module-toolbar-notifications.php:90
+msgid "%s unread NoteFlow notification"
+msgid_plural "%s unread NoteFlow notifications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/modules/class-noteflow-module-toolbar-notifications.php:91
+msgid "NoteFlow notifications"
+msgstr ""
+
+#: includes/modules/class-noteflow-module-toolbar-notifications.php:113
+#: assets/js/app.js:2701
+msgid "You are all caught up."
+msgstr ""
+
+#: includes/modules/class-noteflow-module-toolbar-notifications.php:145
+msgid "Mark all as read"
+msgstr ""
+
+#: assets/js/app.js:32
+msgid "No colour"
+msgstr ""
+
+#: assets/js/app.js:33
+msgid "Red"
+msgstr ""
+
+#: assets/js/app.js:34
+msgid "Orange"
+msgstr ""
+
+#: assets/js/app.js:35
+msgid "Yellow"
+msgstr ""
+
+#: assets/js/app.js:36
+#: assets/js/app.js:217
+msgid "Green"
+msgstr ""
+
+#: assets/js/app.js:37
+#: assets/js/app.js:216
+msgid "Blue"
+msgstr ""
+
+#: assets/js/app.js:38
+#: assets/js/app.js:218
+msgid "Purple"
+msgstr ""
+
+#: assets/js/app.js:39
+msgid "Graphite"
+msgstr ""
+
+#: assets/js/app.js:52
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: assets/js/app.js:139
+msgid "Search all notes"
+msgstr ""
+
+#: assets/js/app.js:144
+msgid "Note tools"
+msgstr ""
+
+#: assets/js/app.js:150
+#: assets/js/app.js:2219
+#: assets/js/app.js:2269
+#: assets/js/app.js:2748
+#: assets/js/app.js:2842
+#: assets/js/quick.js:100
+msgid "Title"
+msgstr ""
+
+#: assets/js/app.js:161
+#: assets/js/discussions.js:122
+msgid "Add a comment. Type @ to mention someone."
+msgstr ""
+
+#: assets/js/app.js:161
+msgid "Add a comment"
+msgstr ""
+
+#: assets/js/app.js:162
+msgid "Send"
+msgstr ""
+
+#: assets/js/app.js:208
+msgid "Start writing…"
+msgstr ""
+
+#: assets/js/app.js:215
+msgid "Amber"
+msgstr ""
+
+#: assets/js/app.js:219
+msgid "Rose"
+msgstr ""
+
+#: assets/js/app.js:284
+#: assets/js/app.js:395
+#: assets/js/app.js:479
+msgid "Shared"
+msgstr ""
+
+#: assets/js/app.js:287
+#: assets/js/app.js:402
+msgid "Recently Deleted"
+msgstr ""
+
+#: assets/js/app.js:369
+msgid "A quick review on WordPress.org takes a minute and helps other teams find NoteFlow. Thank you!"
+msgstr ""
+
+#: assets/js/app.js:371
+msgid "Leave a Review"
+msgstr ""
+
+#: assets/js/app.js:372
+msgid "Maybe Later"
+msgstr ""
+
+#: assets/js/app.js:373
+msgid "I Already Did"
+msgstr ""
+
+#. translators: %d: number of notifications.
+#: assets/js/app.js:383
+msgid "%d unread notification"
+msgid_plural "%d unread notifications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/app.js:384
+#: assets/js/app.js:2687
+#: assets/js/app.js:2702
+msgid "Notifications"
+msgstr ""
+
+#: assets/js/app.js:392
+#: assets/js/app.js:399
+#: assets/js/app.js:444
+msgid "Folders"
+msgstr ""
+
+#: assets/js/app.js:405
+msgid "Tags"
+msgstr ""
+
+#: assets/js/app.js:412
+#: assets/js/app.js:1627
+msgid "New Folder"
+msgstr ""
+
+#: assets/js/app.js:413
+#: assets/js/app.js:2753
+#: assets/js/app.js:2777
+msgid "Preferences"
+msgstr ""
+
+#: assets/js/app.js:420
+msgid "Results"
+msgstr ""
+
+#. translators: %d: number of notes.
+#: assets/js/app.js:422
+msgid "%d note"
+msgid_plural "%d notes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/app.js:429
+msgid "Folder actions"
+msgstr ""
+
+#: assets/js/app.js:431
+msgid "View as list"
+msgstr ""
+
+#: assets/js/app.js:431
+msgid "View as gallery"
+msgstr ""
+
+#: assets/js/app.js:432
+msgid "Sort and group"
+msgstr ""
+
+#: assets/js/app.js:434
+#: assets/js/app.js:1780
+msgid "Delete All"
+msgstr ""
+
+#: assets/js/app.js:438
+msgid "New Note (N)"
+msgstr ""
+
+#: assets/js/app.js:439
+msgid "New note from a template"
+msgstr ""
+
+#: assets/js/app.js:445
+msgid "Show folders"
+msgstr ""
+
+#: assets/js/app.js:445
+msgid "Hide folders"
+msgstr ""
+
+#. translators: %d: number of days.
+#: assets/js/app.js:466
+msgid "%d day left"
+msgid_plural "%d days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/app.js:508
+msgid "No additional text"
+msgstr ""
+
+#: assets/js/app.js:533
+msgid "No Notes"
+msgstr ""
+
+#: assets/js/app.js:534
+msgid "Notes you create in this folder show up here."
+msgstr ""
+
+#: assets/js/app.js:539
+msgid "No Results"
+msgstr ""
+
+#. translators: %s: search terms.
+#: assets/js/app.js:541
+msgid "No notes match “%s”."
+msgstr ""
+
+#: assets/js/app.js:545
+msgid "Nothing Deleted"
+msgstr ""
+
+#. translators: %d: number of days.
+#: assets/js/app.js:547
+msgid "Deleted notes stay here for %d days before they are removed for good."
+msgstr ""
+
+#: assets/js/app.js:547
+msgid "This site deletes notes right away."
+msgstr ""
+
+#: assets/js/app.js:551
+msgid "No Shared Notes"
+msgstr ""
+
+#: assets/js/app.js:552
+msgid "Notes you share, and notes others share with you, show up here."
+msgstr ""
+
+#: assets/js/app.js:556
+msgid "No Reminders"
+msgstr ""
+
+#: assets/js/app.js:557
+msgid "Add a reminder to any note from its More menu."
+msgstr ""
+
+#: assets/js/app.js:561
+msgid "Write your first note. It stays private until you share it."
+msgstr ""
+
+#: assets/js/app.js:601
+msgid "Upcoming"
+msgstr ""
+
+#: assets/js/app.js:602
+msgid "Past"
+msgstr ""
+
+#: assets/js/app.js:631
+msgid "Welcome to NoteFlow 2.0"
+msgstr ""
+
+#: assets/js/app.js:632
+msgid "New notes are private until you share them. Notes from before this update are still shared with everyone, as they were. Change that for any note with the Share button."
+msgstr ""
+
+#: assets/js/app.js:633
+msgid "Got It"
+msgstr ""
+
+#. translators: %d: number of days.
+#: assets/js/app.js:638
+msgid "Notes are deleted for good after %d days."
+msgstr ""
+
+#: assets/js/app.js:653
+#: assets/js/quick.js:150
+#: assets/js/quick.js:204
+msgid "Saving…"
+msgstr ""
+
+#: assets/js/app.js:654
+msgid "Saved"
+msgstr ""
+
+#: assets/js/app.js:655
+msgid "Not saved yet. Retrying…"
+msgstr ""
+
+#: assets/js/app.js:656
+msgid "Offline. Will retry…"
+msgstr ""
+
+#: assets/js/app.js:678
+msgid "Back to notes"
+msgstr ""
+
+#: assets/js/app.js:683
+msgid "Text styles"
+msgstr ""
+
+#: assets/js/app.js:684
+#: assets/js/app.js:2229
+#: assets/js/app.js:2831
+#: assets/js/app.js:2847
+msgid "Checklist"
+msgstr ""
+
+#: assets/js/app.js:685
+msgid "Table"
+msgstr ""
+
+#: assets/js/app.js:686
+msgid "Add image"
+msgstr ""
+
+#: assets/js/app.js:687
+#: assets/js/app.js:2838
+#: assets/js/app.js:2996
+msgid "Link"
+msgstr ""
+
+#: assets/js/app.js:696
+msgid "Share"
+msgstr ""
+
+#: assets/js/app.js:699
+msgid "Comments and history"
+msgstr ""
+
+#: assets/js/app.js:699
+msgid "Version history"
+msgstr ""
+
+#: assets/js/app.js:706
+msgid "More actions"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:741
+msgid "%s is editing"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:742
+msgid "%s is viewing"
+msgstr ""
+
+#. translators: 1: person's name, 2: date.
+#: assets/js/app.js:757
+msgid "Edited by %1$s · %2$s"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:767
+msgid "Shared by %s"
+msgstr ""
+
+#: assets/js/app.js:775
+msgid "Detach from this post"
+msgstr ""
+
+#: assets/js/app.js:783
+msgid "Remove reminder"
+msgstr ""
+
+#: assets/js/app.js:807
+msgid "You are signed out. Sign in again in another tab and your changes will save."
+msgstr ""
+
+#: assets/js/app.js:807
+msgid "Reload"
+msgstr ""
+
+#. translators: 1: date, 2: person's name.
+#: assets/js/app.js:813
+msgid "Version from %1$s, by %2$s."
+msgstr ""
+
+#: assets/js/app.js:814
+msgid "Restore This Version"
+msgstr ""
+
+#: assets/js/app.js:814
+msgid "Back to Current"
+msgstr ""
+
+#: assets/js/app.js:816
+msgid "This note is no longer shared with you."
+msgstr ""
+
+#: assets/js/app.js:818
+msgid "This note is in Recently Deleted. Recover it to edit it."
+msgstr ""
+
+#: assets/js/app.js:818
+#: assets/js/app.js:2395
+msgid "Recover"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:821
+msgid "%s changed the same lines while you were typing."
+msgstr ""
+
+#: assets/js/app.js:822
+msgid "Keep Mine"
+msgstr ""
+
+#: assets/js/app.js:822
+msgid "Use Theirs"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:825
+msgid "View only. %s shared this note with you, and you can comment on it."
+msgstr ""
+
+#: assets/js/app.js:839
+msgid "Pick a note, or start a new one."
+msgstr ""
+
+#: assets/js/app.js:839
+msgid "Your notes live here."
+msgstr ""
+
+#. translators: 1: key for a new note, 2: key for search, 3: key for shortcuts.
+#: assets/js/app.js:842
+msgid "Press %1$s for a new note, %2$s to search, %3$s for all shortcuts."
+msgstr ""
+
+#: assets/js/app.js:1137
+#: assets/js/app.js:3876
+msgid "That note is gone, or it is no longer shared with you."
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:1335
+msgid "Merged in changes from %s."
+msgstr ""
+
+#. translators: %s: folder name.
+#: assets/js/app.js:1615
+msgid "Moved to %s."
+msgstr ""
+
+#: assets/js/app.js:1627
+#: assets/js/app.js:1645
+msgid "Folder name"
+msgstr ""
+
+#: assets/js/app.js:1627
+msgid "Create"
+msgstr ""
+
+#: assets/js/app.js:1645
+msgid "Rename Folder"
+msgstr ""
+
+#: assets/js/app.js:1645
+msgid "Rename"
+msgstr ""
+
+#. translators: %s: folder name.
+#: assets/js/app.js:1662
+msgid "Delete “%s”?"
+msgstr ""
+
+#: assets/js/app.js:1663
+msgid "The folder is deleted, but not its notes. They move to Notes."
+msgstr ""
+
+#: assets/js/app.js:1664
+msgid "Delete Folder"
+msgstr ""
+
+#: assets/js/app.js:1705
+msgid "Delete this note?"
+msgstr ""
+
+#: assets/js/app.js:1705
+msgid "This site deletes notes right away. This cannot be undone."
+msgstr ""
+
+#: assets/js/app.js:1705
+#: assets/js/app.js:1758
+#: assets/js/app.js:2445
+#: assets/js/app.js:3252
+#: assets/js/discussions.js:270
+msgid "Delete"
+msgstr ""
+
+#: assets/js/app.js:1732
+msgid "Moved to Recently Deleted."
+msgstr ""
+
+#: assets/js/app.js:1732
+msgid "Undo"
+msgstr ""
+
+#: assets/js/app.js:1751
+msgid "Note recovered."
+msgstr ""
+
+#: assets/js/app.js:1758
+msgid "Delete this note for good?"
+msgstr ""
+
+#: assets/js/app.js:1758
+#: assets/js/app.js:1779
+msgid "You cannot undo this."
+msgstr ""
+
+#. translators: %d: number of notes.
+#: assets/js/app.js:1778
+msgid "Delete %d note for good?"
+msgid_plural "Delete %d notes for good?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/app.js:1809
+msgid "Note duplicated."
+msgstr ""
+
+#: assets/js/app.js:1817
+msgid "Remove this note from your notes?"
+msgstr ""
+
+#: assets/js/app.js:1818
+msgid "You will lose access to it. The owner can share it with you again."
+msgstr ""
+
+#: assets/js/app.js:1819
+#: assets/js/app.js:1912
+#: assets/js/app.js:2501
+msgid "Remove"
+msgstr ""
+
+#: assets/js/app.js:1828
+msgid "This note is shared with everyone, so it stays in your list."
+msgstr ""
+
+#: assets/js/app.js:1849
+msgid "Link copied. Only people with access can open it."
+msgstr ""
+
+#: assets/js/app.js:1851
+#: assets/js/app.js:1853
+msgid "Copy this link:"
+msgstr ""
+
+#: assets/js/app.js:1893
+msgid "Later Today"
+msgstr ""
+
+#: assets/js/app.js:1895
+msgid "Tomorrow"
+msgstr ""
+
+#: assets/js/app.js:1896
+msgid "Next Week"
+msgstr ""
+
+#: assets/js/app.js:1902
+msgid "Edit Reminder"
+msgstr ""
+
+#: assets/js/app.js:1902
+msgid "Remind Me"
+msgstr ""
+
+#: assets/js/app.js:1908
+msgid "Or pick a date and time"
+msgstr ""
+
+#: assets/js/app.js:1909
+msgid "NoteFlow will notify you here, and by email."
+msgstr ""
+
+#: assets/js/app.js:1909
+msgid "NoteFlow will notify you here."
+msgstr ""
+
+#: assets/js/app.js:1919
+#: assets/js/app.js:1990
+#: assets/js/ui.js:429
+#: assets/js/ui.js:464
+msgid "Cancel"
+msgstr ""
+
+#: assets/js/app.js:1921
+msgid "Set Reminder"
+msgstr ""
+
+#. translators: %s: date and time.
+#: assets/js/app.js:1953
+msgid "Reminder set for %s."
+msgstr ""
+
+#: assets/js/app.js:1953
+msgid "Reminder removed."
+msgstr ""
+
+#: assets/js/app.js:1962
+msgid "Draft"
+msgstr ""
+
+#: assets/js/app.js:1963
+msgid "Pending"
+msgstr ""
+
+#: assets/js/app.js:1964
+msgid "Scheduled"
+msgstr ""
+
+#: assets/js/app.js:1965
+msgid "Private"
+msgstr ""
+
+#: assets/js/app.js:1976
+msgid "Attach to a Post or Page"
+msgstr ""
+
+#: assets/js/app.js:1978
+msgid "The note will appear in the Notes box when anyone who can open it edits that post."
+msgstr ""
+
+#: assets/js/app.js:1979
+msgid "Search posts and pages"
+msgstr ""
+
+#: assets/js/app.js:1983
+msgid "Detach"
+msgstr ""
+
+#: assets/js/app.js:1998
+msgid "Searching…"
+msgstr ""
+
+#: assets/js/app.js:2012
+msgid "Nothing found."
+msgstr ""
+
+#: assets/js/app.js:2036
+msgid "Note attached."
+msgstr ""
+
+#: assets/js/app.js:2036
+msgid "Note detached."
+msgstr ""
+
+#. translators: %d: number of notes.
+#: assets/js/app.js:2106
+msgid "Exported %d note."
+msgid_plural "Exported %d notes."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: file name.
+#: assets/js/app.js:2129
+msgid "%s is not a NoteFlow backup."
+msgstr ""
+
+#: assets/js/app.js:2151
+msgid "Importing…"
+msgstr ""
+
+#. translators: %d: number of notes.
+#: assets/js/app.js:2163
+msgid "Imported %d note."
+msgid_plural "Imported %d notes."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/app.js:2178
+msgid "Add Image"
+msgstr ""
+
+#: assets/js/app.js:2181
+msgid "Add to Note"
+msgstr ""
+
+#: assets/js/app.js:2193
+msgid "You do not have permission to upload images on this site."
+msgstr ""
+
+#: assets/js/app.js:2196
+msgid "Uploading image…"
+msgstr ""
+
+#: assets/js/app.js:2203
+msgid "Image added."
+msgstr ""
+
+#: assets/js/app.js:2220
+#: assets/js/app.js:2843
+msgid "Heading"
+msgstr ""
+
+#: assets/js/app.js:2221
+msgid "Subheading"
+msgstr ""
+
+#: assets/js/app.js:2222
+msgid "Body"
+msgstr ""
+
+#: assets/js/app.js:2223
+#: assets/js/app.js:2830
+msgid "Monospaced"
+msgstr ""
+
+#: assets/js/app.js:2224
+msgid "Block Quote"
+msgstr ""
+
+#: assets/js/app.js:2226
+msgid "Bulleted List"
+msgstr ""
+
+#: assets/js/app.js:2227
+msgid "Dashed List"
+msgstr ""
+
+#: assets/js/app.js:2228
+msgid "Numbered List"
+msgstr ""
+
+#: assets/js/app.js:2231
+msgid "Bold"
+msgstr ""
+
+#: assets/js/app.js:2232
+msgid "Italic"
+msgstr ""
+
+#: assets/js/app.js:2233
+msgid "Underline"
+msgstr ""
+
+#: assets/js/app.js:2234
+#: assets/js/app.js:2835
+msgid "Strikethrough"
+msgstr ""
+
+#: assets/js/app.js:2235
+#: assets/js/app.js:2836
+msgid "Highlight"
+msgstr ""
+
+#: assets/js/app.js:2236
+msgid "Inline Code"
+msgstr ""
+
+#: assets/js/app.js:2250
+msgid "Add Row Above"
+msgstr ""
+
+#: assets/js/app.js:2251
+msgid "Add Row Below"
+msgstr ""
+
+#: assets/js/app.js:2252
+msgid "Add Column Before"
+msgstr ""
+
+#: assets/js/app.js:2253
+msgid "Add Column After"
+msgstr ""
+
+#: assets/js/app.js:2255
+msgid "Delete Row"
+msgstr ""
+
+#: assets/js/app.js:2256
+msgid "Delete Column"
+msgstr ""
+
+#: assets/js/app.js:2257
+msgid "Delete Table"
+msgstr ""
+
+#: assets/js/app.js:2266
+msgid "Sort By"
+msgstr ""
+
+#: assets/js/app.js:2267
+#: assets/js/app.js:2746
+msgid "Date Edited"
+msgstr ""
+
+#: assets/js/app.js:2268
+#: assets/js/app.js:2747
+msgid "Date Created"
+msgstr ""
+
+#: assets/js/app.js:2271
+msgid "Group by Date"
+msgstr ""
+
+#: assets/js/app.js:2273
+msgid "View as List"
+msgstr ""
+
+#: assets/js/app.js:2274
+msgid "View as Gallery"
+msgstr ""
+
+#: assets/js/app.js:2292
+msgid "Meeting notes"
+msgstr ""
+
+#. translators: %s: date.
+#: assets/js/app.js:2294
+msgid "Meeting notes, %s"
+msgstr ""
+
+#: assets/js/app.js:2296
+msgid "Attendees:"
+msgstr ""
+
+#: assets/js/app.js:2297
+msgid "Agenda"
+msgstr ""
+
+#: assets/js/app.js:2299
+msgid "Action items"
+msgstr ""
+
+#: assets/js/app.js:2302
+msgid "To-do list"
+msgstr ""
+
+#: assets/js/app.js:2303
+msgid "To-do"
+msgstr ""
+
+#: assets/js/app.js:2307
+#: assets/js/app.js:2308
+msgid "Content brief"
+msgstr ""
+
+#: assets/js/app.js:2310
+msgid "Working title:"
+msgstr ""
+
+#: assets/js/app.js:2311
+msgid "Audience:"
+msgstr ""
+
+#: assets/js/app.js:2312
+msgid "Main keyword:"
+msgstr ""
+
+#: assets/js/app.js:2313
+msgid "Outline"
+msgstr ""
+
+#: assets/js/app.js:2314
+msgid "Sources"
+msgstr ""
+
+#: assets/js/app.js:2315
+msgid "Before publishing"
+msgstr ""
+
+#: assets/js/app.js:2316
+msgid "Draft written"
+msgstr ""
+
+#: assets/js/app.js:2316
+msgid "Edited and proofread"
+msgstr ""
+
+#: assets/js/app.js:2316
+msgid "Images added"
+msgstr ""
+
+#: assets/js/app.js:2316
+msgid "SEO title and description"
+msgstr ""
+
+#: assets/js/app.js:2316
+msgid "Scheduled or published"
+msgstr ""
+
+#: assets/js/app.js:2320
+#: assets/js/app.js:2321
+msgid "Bug report"
+msgstr ""
+
+#: assets/js/app.js:2323
+msgid "What happened"
+msgstr ""
+
+#: assets/js/app.js:2324
+msgid "Steps to reproduce"
+msgstr ""
+
+#: assets/js/app.js:2325
+msgid "What should happen"
+msgstr ""
+
+#: assets/js/app.js:2326
+msgid "Environment"
+msgstr ""
+
+#: assets/js/app.js:2327
+msgid "Theme"
+msgstr ""
+
+#: assets/js/app.js:2327
+msgid "Browser"
+msgstr ""
+
+#: assets/js/app.js:2331
+#: assets/js/app.js:2332
+msgid "Launch checklist"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Back up the site"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Test on a staging site"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Update plugins and themes"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Check forms and emails"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Check on a phone"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Clear caches"
+msgstr ""
+
+#: assets/js/app.js:2335
+msgid "Announce it"
+msgstr ""
+
+#: assets/js/app.js:2341
+msgid "Weekly plan"
+msgstr ""
+
+#. translators: %s: date.
+#: assets/js/app.js:2343
+msgid "Week of %s"
+msgstr ""
+
+#: assets/js/app.js:2344
+msgid "Priorities"
+msgstr ""
+
+#: assets/js/app.js:2352
+msgid "New from Template"
+msgstr ""
+
+#: assets/js/app.js:2362
+msgid "New Folder…"
+msgstr ""
+
+#: assets/js/app.js:2368
+msgid "Colour"
+msgstr ""
+
+#: assets/js/app.js:2396
+msgid "Delete for Good"
+msgstr ""
+
+#: assets/js/app.js:2404
+msgid "Unpin Note"
+msgstr ""
+
+#: assets/js/app.js:2404
+msgid "Pin Note"
+msgstr ""
+
+#: assets/js/app.js:2405
+msgid "Move to"
+msgstr ""
+
+#: assets/js/app.js:2408
+msgid "Edit Reminder…"
+msgstr ""
+
+#: assets/js/app.js:2408
+msgid "Add Reminder…"
+msgstr ""
+
+#: assets/js/app.js:2411
+msgid "Attached Post…"
+msgstr ""
+
+#: assets/js/app.js:2411
+msgid "Attach to a Post or Page…"
+msgstr ""
+
+#: assets/js/app.js:2418
+msgid "Share…"
+msgstr ""
+
+#: assets/js/app.js:2418
+msgid "People with Access…"
+msgstr ""
+
+#: assets/js/app.js:2422
+#: assets/js/app.js:3112
+msgid "Comments"
+msgstr ""
+
+#: assets/js/app.js:2424
+msgid "Version History"
+msgstr ""
+
+#: assets/js/app.js:2426
+msgid "Duplicate"
+msgstr ""
+
+#: assets/js/app.js:2427
+#: assets/js/app.js:2556
+msgid "Copy Link"
+msgstr ""
+
+#: assets/js/app.js:2431
+msgid "Export as Markdown"
+msgstr ""
+
+#: assets/js/app.js:2432
+msgid "Export as HTML"
+msgstr ""
+
+#: assets/js/app.js:2433
+msgid "Print"
+msgstr ""
+
+#: assets/js/app.js:2439
+msgid "Move Ticked Items to Bottom"
+msgstr ""
+
+#: assets/js/app.js:2440
+msgid "Untick All Items"
+msgstr ""
+
+#: assets/js/app.js:2447
+#: assets/js/app.js:2549
+msgid "Remove from My Notes"
+msgstr ""
+
+#. translators: 1: number of words, 2: date.
+#: assets/js/app.js:2450
+msgid "%1$s word · created %2$s"
+msgid_plural "%1$s words · created %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/app.js:2460
+msgid "Rename Folder…"
+msgstr ""
+
+#: assets/js/app.js:2461
+msgid "Delete Folder…"
+msgstr ""
+
+#: assets/js/app.js:2492
+#: assets/js/app.js:2499
+#: assets/js/discussions.js:411
+msgid "(you)"
+msgstr ""
+
+#: assets/js/app.js:2492
+msgid "Owner"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/app.js:2496
+msgid "Access for %s"
+msgstr ""
+
+#: assets/js/app.js:2501
+#: assets/js/app.js:2502
+#: assets/js/app.js:2534
+msgid "Can edit"
+msgstr ""
+
+#: assets/js/app.js:2501
+#: assets/js/app.js:2502
+#: assets/js/app.js:2534
+msgid "Can view"
+msgstr ""
+
+#: assets/js/app.js:2526
+msgid "Add people by name"
+msgstr ""
+
+#. translators: %s: note title.
+#: assets/js/app.js:2529
+msgid "Share “%s”"
+msgstr ""
+
+#: assets/js/app.js:2534
+msgid "Access for people you add"
+msgstr ""
+
+#: assets/js/app.js:2536
+msgid "Only the owner can change who has access."
+msgstr ""
+
+#: assets/js/app.js:2537
+msgid "People with access"
+msgstr ""
+
+#: assets/js/app.js:2540
+#: assets/js/app.js:2541
+msgid "General access"
+msgstr ""
+
+#: assets/js/app.js:2542
+msgid "Only people added above"
+msgstr ""
+
+#: assets/js/app.js:2543
+msgid "Everyone with NoteFlow can view"
+msgstr ""
+
+#: assets/js/app.js:2544
+msgid "Everyone with NoteFlow can edit"
+msgstr ""
+
+#: assets/js/app.js:2557
+#: assets/js/app.js:2852
+msgid "Done"
+msgstr ""
+
+#: assets/js/app.js:2741
+msgid "Light"
+msgstr ""
+
+#: assets/js/app.js:2742
+msgid "Dark"
+msgstr ""
+
+#: assets/js/app.js:2743
+msgid "Auto"
+msgstr ""
+
+#: assets/js/app.js:2754
+msgid "Appearance"
+msgstr ""
+
+#: assets/js/app.js:2757
+msgid "Accent colour"
+msgstr ""
+
+#: assets/js/app.js:2760
+msgid "Sort notes by"
+msgstr ""
+
+#: assets/js/app.js:2763
+msgid "Group notes by date"
+msgstr ""
+
+#: assets/js/app.js:2764
+msgid "Email me about shares, mentions and reminders"
+msgstr ""
+
+#: assets/js/app.js:2766
+#: assets/js/app.js:2813
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: assets/js/app.js:2768
+msgid "Export All My Notes"
+msgstr ""
+
+#: assets/js/app.js:2769
+msgid "Import Notes…"
+msgstr ""
+
+#: assets/js/app.js:2772
+msgid "Rate NoteFlow on WordPress.org"
+msgstr ""
+
+#: assets/js/app.js:2773
+msgid "Help and Feedback"
+msgstr ""
+
+#: assets/js/app.js:2819
+msgid "Search"
+msgstr ""
+
+#: assets/js/app.js:2820
+msgid "Previous or next note"
+msgstr ""
+
+#: assets/js/app.js:2821
+msgid "Edit the selected note"
+msgstr ""
+
+#: assets/js/app.js:2822
+msgid "Pin or unpin"
+msgstr ""
+
+#: assets/js/app.js:2823
+msgid "Delete note"
+msgstr ""
+
+#: assets/js/app.js:2824
+msgid "Save now"
+msgstr ""
+
+#: assets/js/app.js:2825
+msgid "Show shortcuts"
+msgstr ""
+
+#: assets/js/app.js:2828
+msgid "Title, heading, subheading"
+msgstr ""
+
+#: assets/js/app.js:2829
+msgid "Body text"
+msgstr ""
+
+#: assets/js/app.js:2832
+#: assets/js/app.js:2844
+msgid "Bulleted list"
+msgstr ""
+
+#: assets/js/app.js:2833
+#: assets/js/app.js:2846
+msgid "Numbered list"
+msgstr ""
+
+#: assets/js/app.js:2834
+msgid "Bold, italic, underline"
+msgstr ""
+
+#: assets/js/app.js:2837
+msgid "Inline code"
+msgstr ""
+
+#: assets/js/app.js:2839
+msgid "Indent a list item"
+msgstr ""
+
+#: assets/js/app.js:2841
+msgid "Type at the start of a line"
+msgstr ""
+
+#: assets/js/app.js:2845
+msgid "Dashed list"
+msgstr ""
+
+#: assets/js/app.js:2848
+msgid "Quote"
+msgstr ""
+
+#: assets/js/app.js:2849
+msgid "Code block"
+msgstr ""
+
+#: assets/js/app.js:2902
+msgid "Link to"
+msgstr ""
+
+#: assets/js/app.js:2913
+msgid "Link to…"
+msgstr ""
+
+#: assets/js/app.js:2914
+msgid "Type to search notes, posts and pages."
+msgstr ""
+
+#: assets/js/app.js:2990
+msgid "Link address"
+msgstr ""
+
+#: assets/js/app.js:2991
+msgid "Text"
+msgstr ""
+
+#: assets/js/app.js:2993
+msgid "Remove Link"
+msgstr ""
+
+#: assets/js/app.js:2994
+msgid "Apply"
+msgstr ""
+
+#: assets/js/app.js:3004
+msgid "Search or paste a link"
+msgstr ""
+
+#: assets/js/app.js:3112
+msgid "History"
+msgstr ""
+
+#: assets/js/app.js:3123
+#: assets/js/quick.js:99
+#: assets/js/ui.js:328
+msgid "Close"
+msgstr ""
+
+#: assets/js/app.js:3137
+msgid "Delete comment"
+msgstr ""
+
+#: assets/js/app.js:3147
+msgid "No comments yet"
+msgstr ""
+
+#: assets/js/app.js:3148
+msgid "Talk about this note here. Type @ to mention someone who can see it."
+msgstr ""
+
+#: assets/js/app.js:3148
+msgid "Share the note to discuss it with your team, or leave yourself a comment."
+msgstr ""
+
+#: assets/js/app.js:3153
+msgid "NoteFlow keeps a version every ten minutes while someone edits, and each time a different person makes changes."
+msgstr ""
+
+#: assets/js/app.js:3160
+msgid "Current version"
+msgstr ""
+
+#: assets/js/app.js:3168
+msgid "No earlier versions yet"
+msgstr ""
+
+#: assets/js/app.js:3168
+msgid "Versions appear here as the note changes."
+msgstr ""
+
+#: assets/js/app.js:3252
+msgid "Delete this comment?"
+msgstr ""
+
+#: assets/js/app.js:3386
+msgid "Version restored."
+msgstr ""
+
+#: assets/js/app.js:3483
+msgid "Thank you! It really helps."
+msgstr ""
+
+#. translators: %d: number of open comments and issues.
+#: assets/js/block-editor.js:284
+msgid "NoteFlow: %d open"
+msgid_plural "NoteFlow: %d open"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of open comments and issues on the block.
+#: assets/js/block-editor.js:311
+msgid "Comment (%d open)"
+msgid_plural "Comment (%d open)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/block-editor.js:314
+#: assets/js/discussions.js:130
+#: assets/js/discussions.js:134
+#: assets/js/discussions.js:174
+#: assets/js/discussions.js:300
+msgid "Comment"
+msgstr ""
+
+#: assets/js/discussions.js:31
+#: assets/js/ui.js:596
+msgid "just now"
+msgstr ""
+
+#. translators: %d: minutes.
+#: assets/js/discussions.js:35
+#: assets/js/ui.js:600
+msgid "%d min ago"
+msgstr ""
+
+#. translators: %d: hours.
+#: assets/js/discussions.js:39
+#: assets/js/ui.js:604
+msgid "%d hr ago"
+msgstr ""
+
+#: assets/js/discussions.js:117
+msgid "Discussion"
+msgstr ""
+
+#: assets/js/discussions.js:129
+msgid "Type"
+msgstr ""
+
+#: assets/js/discussions.js:131
+#: assets/js/discussions.js:300
+msgid "Issue"
+msgstr ""
+
+#: assets/js/discussions.js:135
+msgid "Assign to"
+msgstr ""
+
+#: assets/js/discussions.js:135
+#: assets/js/discussions.js:411
+msgid "Assign to…"
+msgstr ""
+
+#: assets/js/discussions.js:139
+msgid "Show"
+msgstr ""
+
+#. translators: %s: post type name.
+#: assets/js/discussions.js:146
+msgid "Notes attached to this %s. They are private until you share them in NoteFlow."
+msgstr ""
+
+#: assets/js/discussions.js:174
+msgid "Raise issue"
+msgstr ""
+
+#: assets/js/discussions.js:200
+msgid "Attached to"
+msgstr ""
+
+#: assets/js/discussions.js:200
+msgid "Attach to the selected block"
+msgstr ""
+
+#. translators: %d: number of open threads.
+#: assets/js/discussions.js:241
+msgid "Open (%d)"
+msgstr ""
+
+#. translators: %d: number of resolved threads.
+#: assets/js/discussions.js:242
+msgid "Resolved (%d)"
+msgstr ""
+
+#: assets/js/discussions.js:287
+msgid "No open comments or issues. Start one above."
+msgstr ""
+
+#: assets/js/discussions.js:287
+msgid "Nothing resolved yet."
+msgstr ""
+
+#: assets/js/discussions.js:303
+msgid "Assigned to you"
+msgstr ""
+
+#. translators: %s: person's name.
+#: assets/js/discussions.js:304
+msgid "Assigned to %s"
+msgstr ""
+
+#: assets/js/discussions.js:308
+msgid "Resolve"
+msgstr ""
+
+#: assets/js/discussions.js:309
+msgid "Reopen"
+msgstr ""
+
+#: assets/js/discussions.js:311
+msgid "A block in this post"
+msgstr ""
+
+#. translators: 1: person's name, 2: time, like "5 min ago".
+#: assets/js/discussions.js:315
+msgid "Resolved by %1$s, %2$s"
+msgstr ""
+
+#: assets/js/discussions.js:317
+msgid "Reply…"
+msgstr ""
+
+#: assets/js/discussions.js:317
+#: assets/js/discussions.js:318
+msgid "Reply"
+msgstr ""
+
+#: assets/js/discussions.js:351
+msgid "No notes yet."
+msgstr ""
+
+#: assets/js/discussions.js:516
+msgid "Posted. Save the post to keep it attached to the block."
+msgstr ""
+
+#: assets/js/discussions.js:516
+msgid "Posted."
+msgstr ""
+
+#: assets/js/discussions.js:561
+msgid "Delete this for everyone?"
+msgstr ""
+
+#: assets/js/discussions.js:696
+msgid "That block is not in the post any more, or the post has not been saved since."
+msgstr ""
+
+#: assets/js/quick.js:56
+msgid "Just now"
+msgstr ""
+
+#: assets/js/quick.js:101
+msgid "Write it down. Start a line with [] for a checklist item."
+msgstr ""
+
+#: assets/js/quick.js:103
+msgid "Folder"
+msgstr ""
+
+#. translators: %s: post title.
+#: assets/js/quick.js:108
+msgid "Attach to “%s”"
+msgstr ""
+
+#: assets/js/quick.js:112
+#: assets/js/ui.js:465
+msgid "Save"
+msgstr ""
+
+#: assets/js/quick.js:158
+#: assets/js/quick.js:219
+msgid "Saved."
+msgstr ""
+
+#: assets/js/quick.js:158
+msgid "Open"
+msgstr ""
+
+#: assets/js/quick.js:163
+#: assets/js/quick.js:222
+msgid "Could not save the note."
+msgstr ""
+
+#: assets/js/ui.js:431
+msgid "OK"
+msgstr ""
+
+#: assets/js/ui.js:552
+#: assets/js/ui.js:570
+msgid "Yesterday"
+msgstr ""
+
+#: assets/js/ui.js:567
+msgid "Today"
+msgstr ""
+
+#: assets/js/ui.js:573
+msgid "Previous 7 Days"
+msgstr ""
+
+#: assets/js/ui.js:576
+msgid "Previous 30 Days"
+msgstr ""
+
+#. translators: %s: time.
+#: assets/js/ui.js:617
+msgid "Today, %s"
+msgstr ""
+
+#. translators: %s: time.
+#: assets/js/ui.js:621
+msgid "Tomorrow, %s"
+msgstr ""

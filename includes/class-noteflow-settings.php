@@ -49,6 +49,7 @@ class NoteFlow_Settings {
 				'quick_capture' => true,
 				'notifications' => true,
 				'reminders'     => true,
+				'discussions'   => true,
 				'content_notes' => true,
 				'templates'     => true,
 				'export'        => true,
@@ -118,7 +119,7 @@ class NoteFlow_Settings {
 			),
 			'notifications' => array(
 				'title'       => __( 'Toolbar notifications', 'noteflow' ),
-				'description' => __( 'A bell in the toolbar shows new shares, mentions and due reminders on every screen, with the latest ones a click away.', 'noteflow' ),
+				'description' => __( 'A bell in the toolbar shows new shares, mentions, comments and due reminders on every screen, with the latest ones a click away.', 'noteflow' ),
 				'icon'        => 'dashicons-bell',
 			),
 			'reminders'     => array(
@@ -126,9 +127,14 @@ class NoteFlow_Settings {
 				'description' => __( 'Set a date and time on any note. NoteFlow lets you know in the app, and by email, when it is due.', 'noteflow' ),
 				'icon'        => 'dashicons-clock',
 			),
+			'discussions'   => array(
+				'title'       => __( 'Discussions on content', 'noteflow' ),
+				'description' => __( 'Comment on posts and pages like a shared document: raise issues, assign them, @mention people, reply and resolve, right in the editor.', 'noteflow' ),
+				'icon'        => 'dashicons-format-chat',
+			),
 			'content_notes' => array(
 				'title'       => __( 'Content notes', 'noteflow' ),
-				'description' => __( 'Attach notes to posts and pages. They appear in a Notes box in the editor, so feedback stays next to the content.', 'noteflow' ),
+				'description' => __( 'Attach notes to posts and pages and see them next to the content in the editor, so feedback stays with the work.', 'noteflow' ),
 				'icon'        => 'dashicons-admin-page',
 			),
 			'templates'     => array(
@@ -331,7 +337,7 @@ class NoteFlow_Settings {
 							self::toggle( $opt . '[sharing]', $settings['sharing'], __( 'Sharing', 'noteflow' ), __( 'Let people share their notes with other NoteFlow users as viewers or editors.', 'noteflow' ) );
 							self::toggle( $opt . '[share_everyone]', $settings['share_everyone'], __( 'Share with everyone', 'noteflow' ), __( 'Allow a note to be shared with everyone who can use NoteFlow, in one step.', 'noteflow' ) );
 							self::toggle( $opt . '[comments]', $settings['comments'], __( 'Comments and mentions', 'noteflow' ), __( 'Discuss a note in its activity panel, and @mention people to let them know.', 'noteflow' ) );
-							self::toggle( $opt . '[emails]', $settings['emails'], __( 'Email notifications', 'noteflow' ), __( 'Email people when a note is shared with them, when someone mentions them, and when a reminder is due. Each person can turn these off in NoteFlow.', 'noteflow' ) );
+							self::toggle( $opt . '[emails]', $settings['emails'], __( 'Email notifications', 'noteflow' ), __( 'Email people when a note is shared with them, when someone mentions them or comments on their post, and when a reminder is due. Each person can turn these off in NoteFlow.', 'noteflow' ) );
 							?>
 						</div>
 					</section>
@@ -344,20 +350,19 @@ class NoteFlow_Settings {
 								<div class="nf-module">
 									<span class="nf-module-icon dashicons <?php echo esc_attr( $info['icon'] ); ?>" aria-hidden="true"></span>
 									<?php self::toggle( $opt . '[modules][' . $module . ']', ! empty( $settings['modules'][ $module ] ), $info['title'], $info['description'] ); ?>
-									<?php if ( 'content_notes' === $module ) : ?>
-										<fieldset class="nf-module-extra">
-											<legend><?php esc_html_e( 'Show the Notes box on', 'noteflow' ); ?></legend>
-											<?php foreach ( self::content_post_types() as $type => $label ) : ?>
-												<label>
-													<input type="checkbox" name="<?php echo esc_attr( $opt ); ?>[content_post_types][]" value="<?php echo esc_attr( $type ); ?>" <?php checked( in_array( $type, (array) $settings['content_post_types'], true ) ); ?>>
-													<?php echo esc_html( $label ); ?>
-												</label>
-											<?php endforeach; ?>
-										</fieldset>
-									<?php endif; ?>
 								</div>
 							<?php endforeach; ?>
 						</div>
+						<fieldset class="nf-post-types">
+							<legend><?php esc_html_e( 'Show NoteFlow in the editor for', 'noteflow' ); ?></legend>
+							<p class="description"><?php esc_html_e( 'Discussions and content notes appear when editing these post types.', 'noteflow' ); ?></p>
+							<?php foreach ( self::content_post_types() as $type => $label ) : ?>
+								<label>
+									<input type="checkbox" name="<?php echo esc_attr( $opt ); ?>[content_post_types][]" value="<?php echo esc_attr( $type ); ?>" <?php checked( in_array( $type, (array) $settings['content_post_types'], true ) ); ?>>
+									<?php echo esc_html( $label ); ?>
+								</label>
+							<?php endforeach; ?>
+						</fieldset>
 					</section>
 
 					<section class="nf-card">

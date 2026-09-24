@@ -82,7 +82,7 @@ class NoteFlow_Admin_Assets {
 	public static function note_item( $note ) {
 		if ( $note['reminder'] && ! $note['reminded'] ) {
 			/* translators: %s: date and time. */
-			$meta = sprintf( __( 'Reminder: %s', 'noteflow' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $note['reminder'] ) );
+			$meta = sprintf( _x( 'Reminder: %s', 'reminder date and time', 'noteflow' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $note['reminder'] ) );
 		} else {
 			/* translators: %s: time since, like "5 mins". */
 			$meta = sprintf( __( '%s ago', 'noteflow' ), human_time_diff( $note['modified'] ) );

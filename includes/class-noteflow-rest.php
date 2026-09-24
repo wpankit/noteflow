@@ -1165,12 +1165,47 @@ class NoteFlow_REST {
 				'status' => 'publish' === $post->post_status ? '' : $post->post_status,
 				'url'    => (string) $url,
 			);
-			if ( count( $items ) >= 12 ) {
+			if ( count( $items ) >= 16 ) {
 				break;
 			}
 		}
 
-		return array( 'items' => $items );
+		// Titles that match come first, notes before posts among equals; then the rest.
+		if ( '' !== $search ) {
+			foreach ( $items as $i => $item ) {
+				$items[ $i ]['rank'] = array( self::title_match( $item['title'], $search ), $i );
+			}
+			usort(
+				$items,
+				function ( $a, $b ) {
+					return $a['rank'] <=> $b['rank'];
+				}
+			);
+			foreach ( $items as $i => $item ) {
+				unset( $items[ $i ]['rank'] );
+			}
+		}
+
+		return array( 'items' => array_slice( $items, 0, 12 ) );
+	}
+
+	/**
+	 * How well a title matches a search: 0 when it starts with it, 1 when a word does,
+	 * 2 when it appears anywhere, 3 when only the content matched.
+	 *
+	 * @param string $title  Title.
+	 * @param string $search Search.
+	 * @return int
+	 */
+	private static function title_match( $title, $search ) {
+		$pos = function_exists( 'mb_stripos' ) ? mb_stripos( $title, $search ) : stripos( $title, $search );
+		if ( false === $pos ) {
+			return 3;
+		}
+		if ( 0 === $pos ) {
+			return 0;
+		}
+		return preg_match( '/(?:^|[^\\p{L}\\p{N}])' . preg_quote( $search, '/' ) . '/iu', $title ) ? 1 : 2;
 	}
 
 	/**

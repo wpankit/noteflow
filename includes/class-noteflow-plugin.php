@@ -65,6 +65,7 @@ final class NoteFlow_Plugin {
 			'quick_capture' => 'NoteFlow_Module_Quick_Capture',
 			'notifications' => 'NoteFlow_Module_Toolbar_Notifications',
 			'reminders'     => 'NoteFlow_Module_Reminders',
+			'discussions'   => 'NoteFlow_Module_Discussions',
 			'content_notes' => 'NoteFlow_Module_Content_Notes',
 		);
 	}
@@ -92,6 +93,7 @@ final class NoteFlow_Plugin {
 		require_once $dir . 'modules/class-noteflow-module-toolbar-notifications.php';
 		require_once $dir . 'modules/class-noteflow-module-reminders.php';
 		require_once $dir . 'modules/class-noteflow-module-content-notes.php';
+		require_once $dir . 'modules/class-noteflow-module-discussions.php';
 	}
 
 	/**

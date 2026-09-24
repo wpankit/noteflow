@@ -2,7 +2,7 @@
  * Builds the wordpress.org listing assets for NoteFlow.
  *
  *   node .wordpress-org/build-assets.mjs                 icon PNGs and banners
- *   node .wordpress-org/build-assets.mjs --screenshots   also the eight screenshots
+ *   node .wordpress-org/build-assets.mjs --screenshots   also the nine screenshots
  *
  * The icon PNGs come from icon.svg and the banners from source/banner.html, rendered in
  * headless Chrome at the exact sizes wordpress.org expects.
@@ -147,22 +147,22 @@ async function screenshots( browser ) {
 	await priya.waitForFunction( () => document.querySelectorAll( '.nf-presence-item' ).length === 2 && document.querySelector( '.nf-presence-item.is-editing' ), { timeout: 40000 } );
 	await shoot( priya, 'screenshot-1.png' );
 
-	// 2. Sharing.
+	// 4. Sharing.
 	await priya.click( '[data-action="share"]' );
 	await priya.waitForSelector( '.nf-share-list li:nth-child(3)' );
 	await priya.evaluate( () => document.activeElement.blur() );
-	await shoot( priya, 'screenshot-2.png' );
+	await shoot( priya, 'screenshot-4.png' );
 	await priya.keyboard.press( 'Escape' );
 
-	// 3. Comments with people in the note.
+	// 5. Comments with people in the note.
 	await priya.click( '[data-action="activity"]' );
 	await priya.waitForSelector( '.nf-comment' );
 	await priya.type( '.nf-comment-form textarea', 'Checked on my phone: all good. ' );
-	await shoot( priya, 'screenshot-3.png' );
+	await shoot( priya, 'screenshot-5.png' );
 
 	clearInterval( typing );
 
-	// 4. Version history: preview Rahul's version.
+	// 6. Version history: preview Rahul's version.
 	await priya.evaluate( () => ( document.querySelector( '.nf-comment-form textarea' ).value = '' ) );
 	await priya.click( '[data-tab="history"]' );
 	await priya.waitForSelector( '.nf-revision' );
@@ -172,43 +172,90 @@ async function screenshots( browser ) {
 	} );
 	await priya.waitForSelector( '[data-action="preview-restore"]' );
 	await priya.mouse.move( 0, 0 );
-	await shoot( priya, 'screenshot-4.png' );
+	await shoot( priya, 'screenshot-6.png' );
 	await priya.click( '[data-action="preview-close"]' );
 	await priya.click( '[data-activity-close]' );
 
-	// 5. Gallery view, dark.
+	// 7. Gallery view, dark.
 	setPrefs( 'priya', { theme: 'dark', view: 'gallery' } );
 	await priya.goto( SITE_URL + '/wp-admin/admin.php?page=noteflow-notes', { waitUntil: 'networkidle0' } );
 	await priya.waitForSelector( '.nf-card' );
 	await priya.click( '.nf-card' );
 	await priya.waitForSelector( '.nf-app.is-gallery-open' );
 	await priya.click( '[data-action="back"]' );
-	await shoot( priya, 'screenshot-5.png' );
+	await shoot( priya, 'screenshot-7.png' );
 	setPrefs( 'priya', { theme: 'light', view: 'list' } );
 
-	// 6. Quick capture and the Dashboard widget.
+	// 8. Quick capture and the Dashboard widget.
 	await priya.goto( SITE_URL + '/wp-admin/index.php', { waitUntil: 'networkidle0' } );
 	await priya.click( '#wp-admin-bar-noteflow-quick > a' );
 	await priya.waitForSelector( '.nf-q-pop' );
 	await priya.type( '.nf-q-title', 'Call Anna about launch time' );
 	await priya.type( '.nf-q-text', 'She would like 10 am Pacific.\n[] Confirm with Rahul\n[] Update the launch checklist' );
-	await shoot( priya, 'screenshot-6.png' );
+	await shoot( priya, 'screenshot-8.png' );
 	await priya.keyboard.press( 'Escape' );
 
-	// 7. Notes on a post, in the block editor.
+	// 2. A discussion on a post, in the block editor, with the paragraph that has the
+	// open issue selected so its thread is marked and the block toolbar shows.
 	await priya.goto( SITE_URL + '/wp-admin/post.php?post=' + demo.post + '&action=edit', { waitUntil: 'networkidle0' } );
 	await sleep( 1500 );
 	await priya.evaluate( () => document.querySelector( '.components-modal__screen-overlay button[aria-label="Close"]' )?.click() );
-	await sleep( 500 );
-	await priya.evaluate( () => document.querySelector( '#noteflow-content-notes' )?.scrollIntoView( { block: 'center' } ) );
-	await priya.mouse.move( 0, 0 );
-	await shoot( priya, 'screenshot-7.png' );
+	await priya.evaluate( () => window.wp.data.dispatch( 'core/edit-post' ).openGeneralSidebar( 'noteflow/noteflow-sidebar' ) );
+	await priya.waitForSelector( '.nfd-sidebar .nfd-thread' );
+	await priya.evaluate( () => {
+		const find = ( list ) => {
+			for ( const block of list ) {
+				if ( block.attributes.metadata && 'nfdemochart' === block.attributes.metadata.noteflowId ) {
+					return block.clientId;
+				}
+				const inner = find( block.innerBlocks || [] );
+				if ( inner ) {
+					return inner;
+				}
+			}
+			return '';
+		};
+		window.wp.data.dispatch( 'core/block-editor' ).selectBlock( find( window.wp.data.select( 'core/block-editor' ).getBlocks() ) );
+	} );
+	await sleep( 800 );
+	await shoot( priya, 'screenshot-2.png' );
 
-	// 8. Settings.
+	// 3. Linking to a post, page or note by typing [[. Saves never reach the site, so the
+	// note stays as the demo left it.
+	const linker = await pageFor( browser, 'priya' );
+	await linker.setRequestInterception( true );
+	linker.on( 'request', ( request ) => {
+		if ( request.method() === 'POST' && /noteflow\/v1\/notes\/\d+(\?|$)/.test( request.url() ) ) {
+			return; // Left pending until the page closes.
+		}
+		request.continue();
+	} );
+	await openApp( linker, '&note=' + demo.newsletter );
+	await linker.evaluate( () => {
+		const content = document.querySelector( '.nf-content' );
+		const item = Array.from( content.querySelectorAll( 'li' ) ).pop();
+		content.focus();
+		const range = document.createRange();
+		range.selectNodeContents( item );
+		range.collapse( false );
+		window.getSelection().removeAllRanges();
+		window.getSelection().addRange( range );
+	} );
+	await linker.keyboard.press( 'Enter' );
+	await linker.keyboard.type( 'Case study: [[page', { delay: 40 } );
+	await linker.waitForFunction( () => document.querySelectorAll( '.nf-link-suggest li' ).length >= 3 );
+	await sleep( 400 );
+	await shoot( linker, 'screenshot-3.png' );
+	await linker.close();
+
+	// 9. Settings.
 	const admin = await pageFor( browser, 'admin', 1440, 1180 );
 	await admin.goto( SITE_URL + '/wp-admin/admin.php?page=noteflow-settings', { waitUntil: 'networkidle0' } );
 	await admin.evaluate( () => document.querySelectorAll( '.notice' ).forEach( ( n ) => n.remove() ) );
-	await shoot( admin, 'screenshot-8.png' );
+	// Tall enough for every module and the Save button.
+	const tall = await admin.evaluate( () => document.querySelector( '#wpbody-content' ).getBoundingClientRect().bottom );
+	await admin.setViewport( { width: 1440, height: Math.min( 1700, Math.ceil( tall ) + 24 ), deviceScaleFactor: 1.5 } );
+	await shoot( admin, 'screenshot-9.png' );
 }
 
 /* Build ---------------------------------------------------------------------------------- */

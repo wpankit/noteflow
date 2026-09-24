@@ -127,8 +127,38 @@ $newsletter = nf_demo_note( $P, 'Newsletter ideas', '<ul class="nf-dashed"><li>B
 $img = wp_get_attachment_image_url( 85, 'large' );
 $brand = nf_demo_note( $P, 'Northwind brand colours', '<p>From the 2026 brand refresh. Use Harbour for headings and Lantern for buttons.</p><p><img src="' . esc_url( $img ) . '" alt="Northwind brand colours"></p>', array( 'folder' => $folders['Ideas'], 'color' => '#f5c400' ), 0, 12 );
 
-// A post the SEO note is attached to.
-$post_id = wp_insert_post( array( 'post_title' => 'How we cut our page load time in half', 'post_status' => 'draft', 'post_author' => $P, 'post_content' => "<!-- wp:paragraph -->\n<p>Last month our homepage took 4.2 seconds to load on a phone. Today it takes 1.9. Here is everything we changed, in the order we changed it.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">1. We measured first</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Before touching anything, we ran every template through a lab test and wrote down the numbers.</p>\n<!-- /wp:paragraph -->" ) );
+// A post the SEO note is attached to, with a discussion on some of its blocks.
+$blocks  = array(
+	array( 'paragraph', 'nfdemointro', 'Last month our homepage took 4.2 seconds to load on a phone. Today it takes 1.9. Here is everything we changed, in the order we changed it.' ),
+	array( 'heading', '', '1. We measured first' ),
+	array( 'paragraph', '', 'Before touching anything, we ran every template through a lab test and wrote down the numbers. The homepage, the shop and the blog were the slowest, so we started there.' ),
+	array( 'paragraph', 'nfdemochart', 'The waterfall chart showed three problems straight away: a 1.2 MB hero image, a slider script on every page, and six web fonts.' ),
+	array( 'heading', '', '2. We fixed the images' ),
+	array( 'paragraph', '', 'Every photo is now WebP, phones get smaller sizes, and nothing below the fold loads until you scroll to it.' ),
+	array( 'heading', '', '3. We removed what we did not need' ),
+	array( 'paragraph', 'nfdemoslider', 'The slider was only used on one page. We replaced it with a Cover block and dropped 180 KB of JavaScript from every other page.' ),
+);
+$content = array();
+foreach ( $blocks as $b ) {
+	$attrs     = $b[1] ? ' ' . wp_json_encode( array( 'metadata' => array( 'noteflowId' => $b[1] ) ) ) : '';
+	$html      = 'heading' === $b[0] ? '<h2 class="wp-block-heading">' . $b[2] . '</h2>' : '<p>' . $b[2] . '</p>';
+	$content[] = '<!-- wp:' . $b[0] . $attrs . " -->\n" . $html . "\n<!-- /wp:" . $b[0] . ' -->';
+}
+$post_id = wp_insert_post( array( 'post_title' => 'How we cut our page load time in half', 'post_status' => 'draft', 'post_author' => $P, 'post_content' => wp_slash( implode( "\n\n", $content ) ) ) );
+
+/** Adds a discussion thread to the demo post, with replies, minutes ago. */
+function nf_demo_thread( $post_id, $thread, $replies = array() ) {
+	$id = add_post_meta( $post_id, NoteFlow_Module_Discussions::THREAD, array_merge( array( 'status' => 'open', 'assignee' => 0, 'block' => '', 'quote' => '', 'mentions' => array() ), $thread, array( 'time' => time() - $thread['time'] * MINUTE_IN_SECONDS ) ) );
+	foreach ( $replies as $r ) {
+		add_post_meta( $post_id, NoteFlow_Module_Discussions::REPLY, array( 'thread' => $id, 'user' => $r[0], 'text' => $r[1], 'time' => time() - $r[2] * MINUTE_IN_SECONDS, 'mentions' => array() ) );
+	}
+	return $id;
+}
+nf_demo_thread( $post_id, array( 'type' => 'comment', 'user' => $M, 'text' => 'Worth saying which page kept the slider?', 'block' => 'nfdemoslider', 'quote' => 'The slider was only used on one page.', 'status' => 'resolved', 'resolved_by' => $P, 'resolved_at' => time() - 100 * MINUTE_IN_SECONDS, 'time' => 180 ), array( array( $P, 'Added it: the old About page.', 110 ) ) );
+nf_demo_thread( $post_id, array( 'type' => 'comment', 'user' => $M, 'text' => 'Can we lead with 1.9 seconds? That is the number people will remember.', 'block' => 'nfdemointro', 'quote' => 'Last month our homepage took 4.2 seconds to load on a phone. Today it takes 1.9.', 'time' => 52 ), array( array( $P, 'Good idea. I will swap the first two sentences.', 34 ) ) );
+nf_demo_thread( $post_id, array( 'type' => 'issue', 'user' => $P, 'text' => 'We need the waterfall screenshot here. @Maria Chen can you export it from the lab test?', 'block' => 'nfdemochart', 'quote' => 'The waterfall chart showed three problems straight away', 'assignee' => $M, 'mentions' => array( $M ), 'time' => 21 ), array( array( $M, 'On it, I will add it before lunch.', 9 ) ) );
+update_post_meta( $post_id, NoteFlow_Module_Discussions::OPEN, 2 );
+
 $seo = nf_demo_note( $P, 'Edits for the page speed post', '<ul class="nf-checklist"><li class="nf-checked">Add before and after numbers to the intro</li><li>Shorten section 3</li><li>Add a screenshot of the waterfall chart</li></ul>', array( 'folder' => $folders['Content'], 'linked' => $post_id ), 0, 7.5 );
 $seo2 = nf_demo_note( $S, 'Link the image guide in step 2', '<p>Could we link to the image optimisation guide from step 2? It answers the most common question we get.</p>', array( 'linked' => $post_id ), 0, 7.9 );
 NoteFlow_Access::set_share( $seo2, '', array( $P => 'edit' ) );
@@ -144,5 +174,5 @@ update_user_option( $P, 'noteflow_notifications', array(
 ) );
 
 update_option( 'noteflow_demo_ids', array( $seo2, $podcast, $post_id ) );
-update_option( 'noteflow_demo', array( 'launch' => $launch, 'calendar' => $calendar, 'post' => $post_id, 'podcast' => $podcast, 'brand' => $brand ) );
+update_option( 'noteflow_demo', array( 'launch' => $launch, 'calendar' => $calendar, 'post' => $post_id, 'podcast' => $podcast, 'brand' => $brand, 'newsletter' => $newsletter ) );
 echo wp_json_encode( get_option( 'noteflow_demo' ) ), "\n";

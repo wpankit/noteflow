@@ -165,10 +165,15 @@ class NoteFlow_Module_Toolbar_Notifications {
 		$note = isset( $_GET['note'] ) ? absint( $_GET['note'] ) : 0;
 		check_admin_referer( self::OPEN_ACTION . '_' . $id );
 
+		$to = $note ? NoteFlow_Admin::note_url( $note ) : admin_url( 'admin.php?page=' . NoteFlow_Admin::PAGE );
 		if ( $id && NoteFlow_Access::can_use() ) {
+			$item = NoteFlow_Notifications::find( get_current_user_id(), $id );
+			if ( $item ) {
+				$to = $item['url'];
+			}
 			NoteFlow_Notifications::mark_read( get_current_user_id(), array( $id ) );
 		}
-		wp_safe_redirect( $note ? NoteFlow_Admin::note_url( $note ) : admin_url( 'admin.php?page=' . NoteFlow_Admin::PAGE ) );
+		wp_safe_redirect( $to );
 		exit;
 	}
 

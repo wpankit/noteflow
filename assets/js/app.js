@@ -737,8 +737,9 @@
 				.slice( 0, 4 )
 				.map( ( p ) => {
 					const who = person( p.id );
-					/* translators: %s: person's name. */
-					const label = sprintf( p.editing ? __( '%s is editing', 'noteflow' ) : __( '%s is viewing', 'noteflow' ), who.name );
+					const label = p.editing
+						? /* translators: %s: person's name. */ sprintf( __( '%s is editing', 'noteflow' ), who.name )
+						: /* translators: %s: person's name. */ sprintf( __( '%s is viewing', 'noteflow' ), who.name );
 					return '<span class="nf-presence-item' + ( p.editing ? ' is-editing' : '' ) + '" title="' + esc( label ) + '" aria-label="' + esc( label ) + '" role="img">' + UI.avatar( who, 26 ) + '</span>';
 				} )
 				.join( '' ) + ( others.length > 4 ? '<span class="nf-presence-more">+' + ( others.length - 4 ) + '</span>' : '' );
@@ -2657,6 +2658,9 @@
 	/* Notifications and preferences ------------------------------------------------------------ */
 
 	function notificationText( item ) {
+		if ( item.message ) {
+			return item.message;
+		}
 		const who = person( item.actor ).name;
 		const title = item.title || __( 'New Note', 'noteflow' );
 		switch ( item.type ) {
@@ -2686,7 +2690,7 @@
 					  items
 							.map(
 								( item ) =>
-									'<li><button type="button" class="nf-notif' + ( item.read ? '' : ' is-unread' ) + '" data-note="' + item.note + '">' +
+									'<li><button type="button" class="nf-notif' + ( item.read ? '' : ' is-unread' ) + '" ' + ( item.post ? 'data-url="' + esc( item.url ) + '"' : 'data-note="' + item.note + '"' ) + '>' +
 									( item.type === 'reminder' ? '<span class="nf-notif-icon">' + icon( 'clock', 16 ) + '</span>' : UI.avatar( person( item.actor ), 32 ) ) +
 									'<span class="nf-notif-body"><span>' + esc( notificationText( item ) ) + '</span>' +
 									( item.text && item.type !== 'share' ? '<q>' + esc( item.text ) + '</q>' : '' ) +
@@ -2698,8 +2702,11 @@
 			{ className: 'nf-notif-pop', label: __( 'Notifications', 'noteflow' ) }
 		);
 		pop.addEventListener( 'click', ( e ) => {
-			const btn = e.target.closest( '[data-note]' );
-			if ( btn ) {
+			const btn = e.target.closest( '[data-note],[data-url]' );
+			if ( btn && btn.dataset.url ) {
+				// A discussion on a post: open it in the editor.
+				window.location.href = btn.dataset.url;
+			} else if ( btn ) {
 				UI.closePopover();
 				goToNote( Number( btn.dataset.note ) );
 			}

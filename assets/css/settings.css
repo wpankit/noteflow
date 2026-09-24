@@ -177,24 +177,32 @@
 	justify-content: space-between;
 }
 
-.nf-module-extra {
-	grid-column: 2;
-	margin: 0;
-	padding: 0;
+.nf-post-types {
+	margin: 18px 0 0;
+	padding: 16px 0 0;
 	border: 0;
+	border-top: 1px solid #f0f0f1;
 }
 
-.nf-module-extra legend {
-	margin-bottom: 6px;
-	color: #50575e;
+.nf-post-types legend {
+	float: left;
+	width: 100%;
+	margin-bottom: 2px;
+	color: #1d2327;
+	font-size: 14px;
 	font-weight: 600;
 }
 
-.nf-module-extra label {
+.nf-post-types .description {
+	clear: both;
+	margin: 0 0 10px;
+}
+
+.nf-post-types label {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
-	margin: 0 14px 6px 0;
+	margin: 0 16px 6px 0;
 }
 
 .nf-settings .submit {

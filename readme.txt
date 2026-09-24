@@ -1,7 +1,7 @@
 === NoteFlow – Notes, Checklists & Team Collaboration ===
 Contributors: ankitmaru
 Donate link: https://wpankit.com/
-Tags: notes, admin notes, checklist, collaboration, dashboard
+Tags: notes, admin notes, collaboration, editorial, checklist
 Requires at least: 6.0
 Tested up to: 7.1
 Stable tag: 2.0.0
@@ -9,18 +9,30 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A calm, fast notes app in your WordPress admin: folders, checklists, tags and reminders, plus notes your team can share and edit together.
+A notes app in your WordPress admin with checklists, reminders and shared notes, plus comments and issues on posts and pages for your team.
 
 == Description ==
 
-**NoteFlow** is a notes app that lives inside WordPress. Write down ideas, keep checklists, plan content and share notes with the people you work with, without leaving your dashboard or signing up for another service.
+**NoteFlow** is a notes app that lives inside WordPress. Write down ideas, keep checklists, plan content, share notes with the people you work with, and discuss posts and pages right in the editor, without leaving your dashboard or signing up for another service.
 
 It looks and feels like the notes app on your computer: folders on the left, your notes in the middle, and a clean page to write on. Everything is saved as you type, and everything stays in your own WordPress database.
+
+= Discuss posts and pages with your team =
+
+Leave feedback where the work is. NoteFlow adds a panel to the editor where everyone who can edit a post can talk about it, like in a shared document:
+
+* **Comment on any block** from the block toolbar. Blocks with open comments are highlighted, so nothing gets missed.
+* **Raise issues** and assign them to a teammate.
+* **@mention people** to bring them in. They are told in the toolbar and by email.
+* **Reply, resolve and reopen.** Open and resolved threads are kept apart.
+* **See what needs attention** in the posts list, where a column shows how many comments and issues are open.
+* Works on posts, pages and custom post types, in the block editor and the classic editor. Comments stay in the admin: they never appear on your site or among its comments.
 
 = Write the way you think =
 
 * **Rich notes** with titles, headings, bulleted, dashed and numbered lists, block quotes, code, links, tables and images.
 * **Checklists** with round tick boxes. Tick items off, move ticked items to the bottom, and see progress like 3/5 in the notes list.
+* **Link to anything**: type `[[` and pick a post, page, custom post type or another note from the suggestions.
 * **Shortcuts as you type**: `[] ` starts a checklist, `- ` a list, `1. ` a numbered list, `# ` a title, `> ` a quote.
 * **Autosave** while you write. There is no Save button to forget.
 * **Paste from anywhere.** Formatting from Google Docs, Word and web pages is cleaned up. Paste or drop an image and it goes to your Media Library.
@@ -33,7 +45,7 @@ It looks and feels like the notes app on your computer: folders on the left, you
 * **Search** every note you can open, with matches highlighted.
 * **List or gallery view**, sorted by date edited, date created or title, and grouped by Today, Yesterday, Previous 7 Days and so on.
 * **Colours** to spot notes at a glance.
-* **Light and dark appearance**, or follow your system.
+* **Light and dark appearance**, or follow your system, with five accent colours to choose from.
 * **Keyboard shortcuts** for almost everything. Press `?` to see them.
 * **Recently Deleted**: deleted notes can be recovered for 30 days.
 
@@ -47,7 +59,7 @@ Notes are private until you share them. When you do, NoteFlow becomes a shared w
 * **Safe editing at the same time.** When two people edit a note at once, NoteFlow merges changes to different paragraphs, list items and table rows. If you both changed the same line, it asks which version to keep. It never silently overwrites someone's work.
 * **Comments and @mentions** in each note's activity panel.
 * **Version history** shows who changed a note and when. Preview any version and restore it.
-* **Notifications** in NoteFlow and by email when a note is shared with you, when someone mentions you, and when a reminder is due. Everyone can turn emails off for themselves.
+* **Notifications** in a bell in the toolbar, in NoteFlow and by email when a note is shared with you, when someone mentions you or comments on your post, and when a reminder is due. Everyone can turn emails off for themselves.
 
 = Modules =
 
@@ -55,8 +67,10 @@ Switch each one on or off in NoteFlow → Settings.
 
 * **Dashboard widget**: jot down a quick note and see pinned notes and upcoming reminders.
 * **Quick capture**: a Note button in the toolbar, in the admin and on your site, to save an idea in seconds (Alt + Shift + N). On a post or page, you can attach the note to it.
+* **Toolbar notifications**: a bell with your unread notifications on every screen.
 * **Reminders**: set a date and time on a note and get notified when it is due.
-* **Content notes**: attach notes to posts and pages. They appear in a Notes box in the editor, so feedback stays next to the content.
+* **Discussions on content**: comments and issues on posts, pages and custom post types, in the editor.
+* **Content notes**: attach notes to posts and pages and see them next to the content in the editor.
 * **Templates**: meeting notes, to-do list, content brief, bug report, launch checklist and weekly plan.
 * **Import and export**: download a note as Markdown or HTML, print it, and move all your notes between sites with a backup file.
 
@@ -117,7 +131,15 @@ Set a date and time from a note's More menu. When it is due, you get a notificat
 
 = Does it work with the block editor and the classic editor? =
 
-Yes. The Notes box for content notes appears in both.
+Yes. In the block editor, NoteFlow adds a sidebar with the post's discussion and notes, a Comment button in the block toolbar, and a highlight on blocks with open comments. In the classic editor, the same panel appears in a NoteFlow box.
+
+= Who can see the comments on a post? =
+
+Everyone who can edit that post and use NoteFlow. Comments and issues are stored with the post, but they never appear on your site, among its comments or in feeds.
+
+= Which post types can be discussed? =
+
+Posts and pages to start with. Choose more, including custom post types, in NoteFlow → Settings.
 
 = Does it work on multisite? =
 
@@ -130,13 +152,14 @@ Your notes are kept, in case you install NoteFlow again. To remove everything, t
 == Screenshots ==
 
 1. The notes app: folders, pinned notes, and a checklist shared with the team.
-2. Share a note with people as viewers or editors, or with everyone.
-3. Comments and @mentions next to the note, with everyone who has it open shown at the top.
-4. Version history: see who changed what, preview any version and restore it.
-5. Gallery view, in dark appearance.
-6. Quick capture from the toolbar, and the Dashboard widget.
-7. Notes attached to a post, in the block editor.
-8. Settings: choose who can use NoteFlow and which modules are on.
+2. Discussions in the block editor: comment on a block, raise an issue and assign it, @mention people, reply and resolve.
+3. Type [[ to link to any post, page or note, with suggestions as you type.
+4. Share a note with people as viewers or editors, or with everyone.
+5. Comments and @mentions next to the note, with everyone who has it open shown at the top.
+6. Version history: see who changed what, preview any version and restore it.
+7. Gallery view, in dark appearance.
+8. Quick capture from the toolbar, and the Dashboard widget.
+9. Settings: choose who can use NoteFlow and which modules are on.
 
 == Changelog ==
 
@@ -149,7 +172,10 @@ NoteFlow has been rebuilt from the ground up.
 * New: share notes with people as viewers or editors, or with everyone.
 * New: see who else has a note open, get their changes live, and edit at the same time safely.
 * New: comments with @mentions, version history with restore, and email notifications.
-* New modules: Dashboard widget, quick capture, reminders, content notes, templates, and import and export.
+* New: discussions on posts, pages and custom post types. Comment on blocks, raise and assign issues, @mention people, reply and resolve, in the block editor and the classic editor.
+* New: type [[ to link to posts, pages and other notes.
+* New: a notification bell in the toolbar, and five accent colours.
+* New modules: Dashboard widget, quick capture, toolbar notifications, reminders, discussions on content, content notes, templates, and import and export.
 * New: NoteFlow → Settings, to choose who can use NoteFlow and which modules are on.
 * Security: notes are now private to their owner, and every request checks the person's access to that note. Please update.
 * Removed: the Freemius SDK and the promotional notice.
@@ -173,4 +199,4 @@ NoteFlow has been rebuilt from the ground up.
 == Upgrade Notice ==
 
 = 2.0.0 =
-A new notes app with sharing, checklists and reminders, and an important security fix. Your 1.x notes are kept and stay shared with everyone, as before.
+A new notes app with sharing, checklists, reminders and discussions on posts, and an important security fix. Your 1.x notes are kept and stay shared with everyone, as before.

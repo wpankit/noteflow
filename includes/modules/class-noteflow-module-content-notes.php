@@ -27,7 +27,10 @@ class NoteFlow_Module_Content_Notes {
 	 * @return bool
 	 */
 	private static function enabled_for( $post_type ) {
-		return in_array( $post_type, (array) NoteFlow_Settings::get( 'content_post_types' ), true ) && NoteFlow_Access::can_use();
+		// With discussions on, the NoteFlow box and sidebar show these notes in a tab.
+		return ! NoteFlow_Settings::module_enabled( 'discussions' )
+			&& in_array( $post_type, (array) NoteFlow_Settings::get( 'content_post_types' ), true )
+			&& NoteFlow_Access::can_use();
 	}
 
 	/**
