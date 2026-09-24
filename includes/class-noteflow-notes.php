@@ -601,7 +601,7 @@ class NoteFlow_Notes {
 		if ( $args['linked'] ) {
 			update_post_meta( $id, self::LINKED, (int) $args['linked'] );
 		}
-		if ( $args['revision'] ) {
+		if ( $args['revision'] && ( '' !== trim( $args['title'] ) || '' !== trim( wp_strip_all_tags( $args['content'] ) ) ) ) {
 			// The first revision records the note as it was created, by its owner.
 			wp_save_post_revision( $id );
 		}
@@ -644,6 +644,8 @@ class NoteFlow_Notes {
 			return self::conflict( $post->ID, $user_id );
 		}
 
+		self::snapshot_before( $post->ID, $user_id );
+
 		$updated = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
 				"UPDATE {$wpdb->posts} SET post_title = %s, post_content = %s, post_modified = %s, post_modified_gmt = %s, menu_order = %d WHERE ID = %d AND menu_order = %d",
@@ -674,6 +676,42 @@ class NoteFlow_Notes {
 		do_action( 'noteflow_note_saved', $post->ID, (int) $user_id );
 
 		return get_post( $post->ID );
+	}
+
+	/**
+	 * Before someone saves over another person's work, keeps that work as a revision
+	 * credited to them. Their own saves are only kept every ten minutes, so without
+	 * this the history could skip straight from an early version to the new editor's.
+	 *
+	 * @param int $note_id Note ID.
+	 * @param int $user_id Person about to save.
+	 */
+	private static function snapshot_before( $note_id, $user_id ) {
+		global $wpdb;
+
+		$previous = (int) get_post_meta( $note_id, self::MODIFIED_BY, true );
+		$post     = get_post( $note_id );
+		if ( ! $post || ! $previous || $previous === (int) $user_id || ( '' === $post->post_content && '' === $post->post_title ) ) {
+			return;
+		}
+
+		$latest = wp_get_post_revisions(
+			$note_id,
+			array(
+				'posts_per_page' => 1,
+				'check_enabled'  => false,
+			)
+		);
+		$latest = $latest ? reset( $latest ) : null;
+		if ( $latest && $latest->post_content === $post->post_content && $latest->post_title === $post->post_title ) {
+			return;
+		}
+
+		$revision = _wp_put_post_revision( $post );
+		if ( $revision && ! is_wp_error( $revision ) ) {
+			$wpdb->update( $wpdb->posts, array( 'post_author' => $previous ), array( 'ID' => (int) $revision ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			clean_post_cache( (int) $revision );
+		}
 	}
 
 	/**
