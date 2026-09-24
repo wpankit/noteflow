@@ -423,8 +423,8 @@ class NoteFlow_Settings {
 		$images   = NOTEFLOW_URL . 'assets/images/plugins/';
 		?>
 		<div class="nf-card nf-review">
-			<h2><?php esc_html_e( 'NoteFlow is free, for good', 'noteflow' ); ?></h2>
-			<p><?php esc_html_e( 'No upsells, no locked features. If NoteFlow helps your team, a short review on WordPress.org helps other people find it.', 'noteflow' ); ?></p>
+			<h2><?php esc_html_e( 'NoteFlow is free to use', 'noteflow' ); ?></h2>
+			<p><?php esc_html_e( 'Everything in NoteFlow is free, and what\'s free stays free. If NoteFlow helps your team, a short review on WordPress.org helps other people find it.', 'noteflow' ); ?></p>
 			<a class="button" href="https://wordpress.org/support/plugin/noteflow/reviews/#new-post" target="_blank" rel="noopener noreferrer">
 				<span class="nf-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
 				<?php esc_html_e( 'Leave a review', 'noteflow' ); ?>

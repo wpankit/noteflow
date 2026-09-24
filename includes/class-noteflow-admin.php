@@ -171,7 +171,7 @@ class NoteFlow_Admin {
 					'new'    => $new,
 				),
 				'notices'  => array(
-					'upgrade' => (int) get_option( NoteFlow_Upgrade::LEGACY_OPTION, 0 ) > 0 && NOTEFLOW_VERSION !== get_user_option( 'noteflow_upgrade_seen', $uid ),
+					'upgrade' => NoteFlow_Upgrade::show_notice( $uid ),
 					'review'  => NoteFlow_Review::should_ask( $uid ),
 				),
 				'urls'     => array(

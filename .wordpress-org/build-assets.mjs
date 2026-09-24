@@ -3,6 +3,7 @@
  *
  *   node .wordpress-org/build-assets.mjs                 icon PNGs and banners
  *   node .wordpress-org/build-assets.mjs --screenshots   also the screenshots
+ *   node .wordpress-org/build-assets.mjs --screenshots --only=settings,posts   just those
  *
  * The icon PNGs come from icon.svg and the banners from source/banner.html, rendered in
  * headless Chrome at the exact sizes wordpress.org expects.
@@ -112,6 +113,8 @@ const SHOTS = [
 	'capture', 'capture-site', 'templates', 'format', 'search', 'note-menu', 'gallery', 'accent', 'shortcuts', 'phone', 'settings',
 ];
 const fileFor = ( key ) => `screenshot-${ SHOTS.indexOf( key ) + 1 }.png`;
+const ONLY = ( process.argv.find( ( arg ) => arg.startsWith( '--only=' ) ) || '' ).slice( 7 ).split( ',' ).filter( Boolean );
+const wanted = ( key ) => ! ONLY.length || ONLY.includes( key );
 
 async function openApp( page, query ) {
 	await page.goto( SITE_URL + '/wp-admin/admin.php?page=noteflow-notes' + ( query || '' ), { waitUntil: 'networkidle0' } );
@@ -128,6 +131,9 @@ const park = ( page ) => page.mouse.move( 1439, 899 );
 async function shoot( page, key ) {
 	if ( ! SHOTS.includes( key ) ) {
 		throw new Error( 'Unknown screenshot ' + key );
+	}
+	if ( ! wanted( key ) ) {
+		return;
 	}
 	await park( page );
 	await sleep( 350 );
@@ -411,8 +417,10 @@ async function screenshots( browser ) {
 		'</body></html>',
 		{ waitUntil: 'load' }
 	);
-	await board.screenshot( { path: join( HERE, fileFor( 'phone' ) ) } );
-	report( fileFor( 'phone' ) );
+	if ( wanted( 'phone' ) ) {
+		await board.screenshot( { path: join( HERE, fileFor( 'phone' ) ) } );
+		report( fileFor( 'phone' ) );
+	}
 	await board.close();
 
 	// Settings.

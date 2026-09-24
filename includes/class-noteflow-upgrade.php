@@ -18,6 +18,7 @@ class NoteFlow_Upgrade {
 
 	const OPTION        = 'noteflow_db_version';
 	const LEGACY_OPTION = 'noteflow_legacy_notes';
+	const NOTICE        = '2.0';
 
 	/**
 	 * Hooks.
@@ -41,6 +42,21 @@ class NoteFlow_Upgrade {
 		}
 
 		update_option( self::OPTION, NOTEFLOW_VERSION, true );
+	}
+
+	/**
+	 * Whether a person upgraded from 1.x should still see the notice about what changed.
+	 * Dismissing it once covers every 2.0 update; a later notice gets a new NOTICE.
+	 *
+	 * @param int $user_id User ID.
+	 * @return bool
+	 */
+	public static function show_notice( $user_id ) {
+		if ( (int) get_option( self::LEGACY_OPTION, 0 ) <= 0 ) {
+			return false;
+		}
+		$seen = (string) get_user_option( 'noteflow_upgrade_seen', $user_id );
+		return '' === $seen || version_compare( $seen, self::NOTICE, '<' );
 	}
 
 	/**

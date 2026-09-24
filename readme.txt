@@ -4,7 +4,7 @@ Donate link: https://wpankit.com/
 Tags: notes, admin notes, collaboration, editorial, checklist
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -82,9 +82,9 @@ Switch each one on or off in NoteFlow → Settings.
 * Notes never appear on your site, in search results, in feeds, or in the REST API for posts.
 * NoteFlow makes no requests to outside services. Profile pictures come from WordPress, as they do everywhere in the admin.
 
-= Free, for good =
+= Free to use =
 
-NoteFlow is completely free. No upsells, no locked features, no account to create and no tracking.
+Everything in NoteFlow is free, and what's free stays free. There is no account to create and no tracking.
 
 = More from the makers of NoteFlow =
 
@@ -175,6 +175,11 @@ Your notes are kept, in case you install NoteFlow again. To remove everything, t
 22. Settings: choose who can use NoteFlow and which modules are on.
 
 == Changelog ==
+
+= 2.0.1 - 2026-09-25 =
+
+* Changed: clearer wording about what is free, in the readme and on the Settings page.
+* Fixed: the notice for sites upgraded from 1.x no longer comes back after an update once it has been dismissed.
 
 = 2.0.0 - 2026-09-24 =
 
