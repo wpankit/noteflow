@@ -505,26 +505,26 @@ body.noteflow-screen #wpbody-content > .update-nag {
 	color: var(--nf-text);
 }
 
-.nf-review-card {
-	margin-bottom: 8px;
-	padding: 10px 12px;
-	border: 1px solid var(--nf-border);
-	border-radius: 10px;
-	background: var(--nf-bg);
-	font-size: 12px;
+.nf-notice.nf-review-card {
+	flex-direction: column;
+	gap: 6px;
+	border: 1px solid rgba(232, 166, 0, 0.35);
 }
 
-.nf-review-card p {
-	margin: 0 0 8px;
-	color: var(--nf-text-2);
+.nf-review-stars {
+	color: var(--nf-accent);
+	font-size: 16px;
+	letter-spacing: 2px;
+	line-height: 1;
 }
 
 .nf-review-card strong {
-	color: var(--nf-text);
+	font-size: 13.5px;
 }
 
 .nf-review-actions {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 6px;
 }
 
@@ -1090,7 +1090,7 @@ body.noteflow-screen #wpbody-content > .update-nag {
 
 .nf-presence-item {
 	position: relative;
-	margin-left: -6px;
+	margin-left: -3px;
 	border-radius: 50%;
 	box-shadow: 0 0 0 2px var(--nf-bg);
 }
@@ -1788,12 +1788,12 @@ body.noteflow-screen #wpbody-content > .update-nag {
 	background: var(--nf-selected);
 }
 
-.nf-revision strong {
+.nf-revision-text strong {
 	display: block;
 	font-size: 13px;
 }
 
-.nf-revision > span > span {
+.nf-revision-text > span {
 	color: var(--nf-text-2);
 	font-size: 12px;
 }
@@ -2366,12 +2366,12 @@ body.noteflow-screen #wpbody-content > .update-nag {
 	min-width: 0;
 }
 
-.nf-share-who strong {
+.nf-share-name strong {
 	display: block;
 	font-size: 13px;
 }
 
-.nf-share-who > span > span {
+.nf-share-name > span {
 	color: var(--nf-text-3);
 	font-size: 12px;
 }

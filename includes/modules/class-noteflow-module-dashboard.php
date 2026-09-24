@@ -44,12 +44,8 @@ class NoteFlow_Module_Dashboard {
 	 * Renders the widget.
 	 */
 	public static function render() {
-		$uid  = get_current_user_id();
-		$ids  = NoteFlow_Notes::accessible_ids( $uid, false );
-		$pins = array_values( array_intersect( NoteFlow_User_State::pins( $uid ), $ids ) );
-
-		$pinned  = NoteFlow_Notes::get_many( array_slice( $pins, 0, 5 ) );
-		$recent  = NoteFlow_Notes::get_many( array_slice( array_values( array_diff( $ids, $pins ) ), 0, 5 ) );
+		$uid     = get_current_user_id();
+		$ids     = NoteFlow_Notes::accessible_ids( $uid, false );
 		$due     = array();
 		$has_any = (bool) $ids;
 
@@ -64,6 +60,12 @@ class NoteFlow_Module_Dashboard {
 			ksort( $due, SORT_NATURAL );
 			$due = array_slice( array_values( $due ), 0, 5 );
 		}
+
+		// Each note shows once: reminders first, then pins, then the latest of the rest.
+		$shown  = wp_list_pluck( $due, 'ID' );
+		$pins   = array_values( array_diff( array_intersect( NoteFlow_User_State::pins( $uid ), $ids ), $shown ) );
+		$pinned = NoteFlow_Notes::get_many( array_slice( $pins, 0, 5 ) );
+		$recent = NoteFlow_Notes::get_many( array_slice( array_values( array_diff( $ids, $pins, $shown ) ), 0, 5 ) );
 
 		$sections = array(
 			array( __( 'Reminders', 'noteflow' ), $due, 'nf-dash-due' ),

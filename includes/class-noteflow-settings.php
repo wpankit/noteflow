@@ -47,6 +47,7 @@ class NoteFlow_Settings {
 			'modules'            => array(
 				'dashboard'     => true,
 				'quick_capture' => true,
+				'notifications' => true,
 				'reminders'     => true,
 				'content_notes' => true,
 				'templates'     => true,
@@ -115,10 +116,15 @@ class NoteFlow_Settings {
 				'description' => __( 'A Note button in the toolbar, in the admin and on your site, to save an idea in seconds. Shortcut: Alt + Shift + N.', 'noteflow' ),
 				'icon'        => 'dashicons-edit',
 			),
+			'notifications' => array(
+				'title'       => __( 'Toolbar notifications', 'noteflow' ),
+				'description' => __( 'A bell in the toolbar shows new shares, mentions and due reminders on every screen, with the latest ones a click away.', 'noteflow' ),
+				'icon'        => 'dashicons-bell',
+			),
 			'reminders'     => array(
 				'title'       => __( 'Reminders', 'noteflow' ),
 				'description' => __( 'Set a date and time on any note. NoteFlow lets you know in the app, and by email, when it is due.', 'noteflow' ),
-				'icon'        => 'dashicons-bell',
+				'icon'        => 'dashicons-clock',
 			),
 			'content_notes' => array(
 				'title'       => __( 'Content notes', 'noteflow' ),

@@ -1127,7 +1127,7 @@ class NoteFlow_REST {
 		if ( 'upgrade' === $what ) {
 			update_user_option( $uid, 'noteflow_upgrade_seen', NOTEFLOW_VERSION );
 		} elseif ( 'review' === $what ) {
-			update_user_option( $uid, 'noteflow_review', $request->get_param( 'later' ) ? time() : 'done' );
+			NoteFlow_Review::answer( $uid, $request->get_param( 'later' ) ? 'later' : 'done' );
 		}
 		return array( 'ok' => true );
 	}

@@ -401,6 +401,23 @@
 		return close;
 	}
 
+	// Escape closes the topmost menu, popover or dialog, wherever focus is.
+	document.addEventListener( 'keydown', ( e ) => {
+		if ( e.key !== 'Escape' || e.defaultPrevented ) {
+			return;
+		}
+		if ( openMenuEl ) {
+			e.preventDefault();
+			closeMenu();
+		} else if ( openPopoverEl ) {
+			e.preventDefault();
+			closePopover();
+		} else if ( dialogs.length ) {
+			e.preventDefault();
+			dialogs[ dialogs.length - 1 ]();
+		}
+	} );
+
 	function confirmDialog( options ) {
 		return new Promise( ( resolve ) => {
 			let answered = false;

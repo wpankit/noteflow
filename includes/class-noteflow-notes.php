@@ -158,6 +158,17 @@ class NoteFlow_Notes {
 			)
 		);
 
+		/**
+		 * Filters the notes a user can see in lists, search and sync.
+		 *
+		 * Removing IDs hides notes from the lists; it does not change who can open them.
+		 *
+		 * @param int[] $ids        Note IDs, newest change first.
+		 * @param int   $user_id    User ID.
+		 * @param bool  $with_trash Whether the user's Recently Deleted notes are included.
+		 */
+		$ids = array_values( array_map( 'intval', (array) apply_filters( 'noteflow_accessible_ids', $ids, $user_id, $with_trash ) ) );
+
 		self::$ids_cache[ $key ] = $ids;
 		return $ids;
 	}

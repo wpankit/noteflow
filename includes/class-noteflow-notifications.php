@@ -129,6 +129,57 @@ class NoteFlow_Notifications {
 	}
 
 	/**
+	 * The latest notifications about notes the user can still open, with note titles.
+	 *
+	 * @param int $user_id User ID.
+	 * @param int $limit   How many.
+	 * @return array[]
+	 */
+	public static function recent( $user_id, $limit ) {
+		$items = array();
+		foreach ( self::all( $user_id ) as $item ) {
+			$note = get_post( (int) $item['note'] );
+			if ( ! $note || '' === NoteFlow_Access::role( $note, $user_id ) ) {
+				continue;
+			}
+			$item['title'] = NoteFlow_Notes::summary( $note, $user_id )['title'];
+			$items[]       = $item;
+			if ( count( $items ) >= $limit ) {
+				break;
+			}
+		}
+		return $items;
+	}
+
+	/**
+	 * A notification as a sentence, like "Maria Chen mentioned you in “Launch plan”".
+	 *
+	 * @param array $item Notification with a 'title'.
+	 * @return string
+	 */
+	public static function describe( $item ) {
+		$actor = ! empty( $item['actor'] ) ? get_userdata( (int) $item['actor'] ) : null;
+		$name  = $actor ? html_entity_decode( $actor->display_name, ENT_QUOTES, 'UTF-8' ) : __( 'Someone', 'noteflow' );
+		$title = isset( $item['title'] ) && '' !== $item['title'] ? $item['title'] : __( 'New Note', 'noteflow' );
+
+		switch ( $item['type'] ) {
+			case 'share':
+				/* translators: 1: person's name, 2: note title. */
+				return sprintf( __( '%1$s shared “%2$s” with you', 'noteflow' ), $name, $title );
+			case 'mention':
+				/* translators: 1: person's name, 2: note title. */
+				return sprintf( __( '%1$s mentioned you in “%2$s”', 'noteflow' ), $name, $title );
+			case 'comment':
+				/* translators: 1: person's name, 2: note title. */
+				return sprintf( __( '%1$s commented on “%2$s”', 'noteflow' ), $name, $title );
+			case 'reminder':
+				/* translators: %s: note title. */
+				return sprintf( __( 'Reminder: “%s”', 'noteflow' ), $title );
+		}
+		return $title;
+	}
+
+	/**
 	 * Sends the email version of a notification.
 	 *
 	 * @param int    $user_id  Recipient.

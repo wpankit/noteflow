@@ -348,17 +348,18 @@
 		);
 	}
 
+	/** The review request, at the top of the notes list. */
 	function reviewCard() {
-		if ( ! data.notices.review || S.reviewDismissed ) {
-			return '';
-		}
 		return (
-			'<div class="nf-review-card">' +
-			'<p><strong>' + esc( __( 'Enjoying NoteFlow?', 'noteflow' ) ) + '</strong> ' + esc( __( 'A quick review on WordPress.org helps other teams find it.', 'noteflow' ) ) + '</p>' +
+			'<div class="nf-notice nf-review-card">' +
+			'<span class="nf-review-stars" aria-hidden="true">★★★★★</span>' +
+			'<div><strong>' + esc( __( 'Enjoying NoteFlow?', 'noteflow' ) ) + '</strong>' +
+			'<p>' + esc( __( 'A quick review on WordPress.org takes a minute and helps other teams find NoteFlow. Thank you!', 'noteflow' ) ) + '</p>' +
 			'<div class="nf-review-actions">' +
-			'<a class="nf-button is-small is-primary" href="' + esc( data.urls.review ) + '" target="_blank" rel="noopener noreferrer" data-action="review">' + icon( 'star', 14 ) + esc( __( 'Leave a Review', 'noteflow' ) ) + '</a>' +
-			'<button type="button" class="nf-button is-small is-plain" data-action="review-later">' + esc( __( 'Not Now', 'noteflow' ) ) + '</button>' +
-			'</div></div>'
+			'<a class="nf-button is-small is-primary" href="' + esc( data.urls.review ) + '" target="_blank" rel="noopener noreferrer" data-action="review">' + esc( __( 'Leave a Review', 'noteflow' ) ) + '</a>' +
+			'<button type="button" class="nf-button is-small" data-action="review-later">' + esc( __( 'Maybe Later', 'noteflow' ) ) + '</button>' +
+			'<button type="button" class="nf-button is-small is-plain" data-action="review-done">' + esc( __( 'I Already Did', 'noteflow' ) ) + '</button>' +
+			'</div></div></div>'
 		);
 	}
 
@@ -395,7 +396,6 @@
 				: '' ) +
 			'</nav>' +
 			'<div class="nf-side-foot">' +
-			reviewCard() +
 			'<div class="nf-side-foot-row">' +
 			'<button type="button" class="nf-side-foot-btn" data-action="new-folder">' + icon( 'folderPlus', 17 ) + '<span>' + esc( __( 'New Folder', 'noteflow' ) ) + '</span></button>' +
 			'<button type="button" class="nf-icon-button" data-action="prefs" aria-label="' + esc( __( 'Preferences', 'noteflow' ) ) + '" title="' + esc( __( 'Preferences', 'noteflow' ) ) + '" aria-haspopup="dialog">' + icon( 'sliders' ) + '</button>' +
@@ -619,6 +619,8 @@
 				'<div><strong>' + esc( __( 'Welcome to NoteFlow 2.0', 'noteflow' ) ) + '</strong>' +
 				'<p>' + esc( __( 'New notes are private until you share them. Notes from before this update are still shared with everyone, as they were. Change that for any note with the Share button.', 'noteflow' ) ) + '</p>' +
 				'<button type="button" class="nf-button is-small" data-action="dismiss-upgrade">' + esc( __( 'Got It', 'noteflow' ) ) + '</button></div></div>';
+		} else if ( data.notices.review && ! S.reviewDismissed && S.view !== 'trash' ) {
+			html = reviewCard();
 		} else if ( S.view === 'trash' && ! S.search && settings.trashDays ) {
 			/* translators: %d: number of days. */
 			html = '<p class="nf-list-hint">' + esc( sprintf( __( 'Notes are deleted for good after %d days.', 'noteflow' ), settings.trashDays ) ) + '</p>';
@@ -2474,14 +2476,14 @@
 			const ownerPerson = person( share.owner );
 			let html =
 				'<li class="nf-share-person"><span class="nf-share-who">' + UI.avatar( ownerPerson, 32 ) +
-				'<span><strong>' + esc( ownerPerson.name ) + ( share.owner === me.id ? ' ' + esc( __( '(you)', 'noteflow' ) ) : '' ) + '</strong><span>' + esc( __( 'Owner', 'noteflow' ) ) + '</span></span></span></li>';
+				'<span class="nf-share-name"><strong>' + esc( ownerPerson.name ) + ( share.owner === me.id ? ' ' + esc( __( '(you)', 'noteflow' ) ) : '' ) + '</strong><span>' + esc( __( 'Owner', 'noteflow' ) ) + '</span></span></span></li>';
 			state.users.forEach( ( u ) => {
 				const p = person( u.id );
 				/* translators: %s: person's name. */
 				const label = sprintf( __( 'Access for %s', 'noteflow' ), p.name );
 				html +=
 					'<li class="nf-share-person" data-user="' + u.id + '"><span class="nf-share-who">' + UI.avatar( p, 32 ) +
-					'<span><strong>' + esc( p.name ) + ( u.id === me.id ? ' ' + esc( __( '(you)', 'noteflow' ) ) : '' ) + '</strong></span></span>' +
+					'<span class="nf-share-name"><strong>' + esc( p.name ) + ( u.id === me.id ? ' ' + esc( __( '(you)', 'noteflow' ) ) : '' ) + '</strong></span></span>' +
 					( owner
 						? '<select data-role aria-label="' + esc( label ) + '"><option value="edit"' + ( u.role === 'edit' ? ' selected' : '' ) + '>' + esc( __( 'Can edit', 'noteflow' ) ) + '</option><option value="view"' + ( u.role === 'view' ? ' selected' : '' ) + '>' + esc( __( 'Can view', 'noteflow' ) ) + '</option><option value="remove">' + esc( __( 'Remove', 'noteflow' ) ) + '</option></select>'
 						: '<span class="nf-share-role">' + esc( u.role === 'edit' ? __( 'Can edit', 'noteflow' ) : __( 'Can view', 'noteflow' ) ) + '</span>' ) +
@@ -2745,6 +2747,7 @@
 					  '<button type="button" data-do="import">' + icon( 'upload', 16 ) + esc( __( 'Import Notes…', 'noteflow' ) ) + '</button>'
 					: '' ) +
 				( data.urls.settings ? '<a href="' + esc( data.urls.settings ) + '">' + icon( 'sliders', 16 ) + esc( __( 'NoteFlow Settings', 'noteflow' ) ) + '</a>' : '' ) +
+				'<a href="' + esc( data.urls.review ) + '" target="_blank" rel="noopener noreferrer">' + icon( 'star', 16 ) + esc( __( 'Rate NoteFlow on WordPress.org', 'noteflow' ) ) + '</a>' +
 				'<a href="' + esc( data.urls.support ) + '" target="_blank" rel="noopener noreferrer">' + icon( 'comment', 16 ) + esc( __( 'Help and Feedback', 'noteflow' ) ) + '</a>' +
 				'</div>' +
 				'<p class="nf-prefs-version">NoteFlow ' + esc( data.version ) + '</p>' +
@@ -2951,7 +2954,7 @@
 						const p = person( r.author );
 						return (
 							'<li><button type="button" class="nf-revision' + ( S.preview && S.preview.id === r.id ? ' is-active' : '' ) + '" data-revision="' + r.id + '">' + UI.avatar( p, 28 ) +
-							'<span><strong>' + esc( UI.mediumDate( r.time ) ) + '</strong><span>' + esc( p.name ) + ( r.current ? ' · ' + esc( __( 'Current version', 'noteflow' ) ) : '' ) + '</span></span></button></li>'
+							'<span class="nf-revision-text"><strong>' + esc( UI.mediumDate( r.time ) ) + '</strong><span>' + esc( p.name ) + ( r.current ? ' · ' + esc( __( 'Current version', 'noteflow' ) ) : '' ) + '</span></span></button></li>'
 						);
 					} )
 					.join( '' ) +
@@ -3269,13 +3272,17 @@
 				api.post( '/dismiss', { what: 'upgrade' } ).catch( () => {} );
 				break;
 			case 'review':
+			case 'review-done':
 				S.reviewDismissed = true;
-				setTimeout( renderSidebar );
+				setTimeout( renderNotices );
 				api.post( '/dismiss', { what: 'review' } ).catch( () => {} );
+				if ( action === 'review' ) {
+					UI.toast( __( 'Thank you! It really helps.', 'noteflow' ) );
+				}
 				break;
 			case 'review-later':
 				S.reviewDismissed = true;
-				renderSidebar();
+				renderNotices();
 				api.post( '/dismiss', { what: 'review', later: 1 } ).catch( () => {} );
 				break;
 			case 'conflict-mine':

@@ -147,9 +147,6 @@ class NoteFlow_Admin {
 		$new    = ! empty( $_GET['new'] );
 		// phpcs:enable
 
-		$review = get_user_option( 'noteflow_review', $uid );
-		$first  = (int) get_user_option( 'noteflow_welcomed', $uid );
-
 		return array_merge(
 			NoteFlow_REST::bootstrap( $uid ),
 			array(
@@ -175,11 +172,11 @@ class NoteFlow_Admin {
 				),
 				'notices'  => array(
 					'upgrade' => (int) get_option( NoteFlow_Upgrade::LEGACY_OPTION, 0 ) > 0 && NOTEFLOW_VERSION !== get_user_option( 'noteflow_upgrade_seen', $uid ),
-					'review'  => 'done' !== $review && ( ! $review || time() - (int) $review > 30 * DAY_IN_SECONDS ) && $first && time() - $first > 7 * DAY_IN_SECONDS,
+					'review'  => NoteFlow_Review::should_ask( $uid ),
 				),
 				'urls'     => array(
 					'settings' => current_user_can( 'manage_options' ) ? admin_url( 'admin.php?page=' . NoteFlow_Settings::PAGE ) : '',
-					'review'   => 'https://wordpress.org/support/plugin/noteflow/reviews/#new-post',
+					'review'   => NoteFlow_Review::URL,
 					'support'  => 'https://wordpress.org/support/plugin/noteflow/',
 					'app'      => admin_url( 'admin.php?page=' . self::PAGE ),
 					'icon'     => NOTEFLOW_URL . 'assets/images/noteflow-icon.svg',

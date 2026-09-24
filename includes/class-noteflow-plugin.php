@@ -43,6 +43,7 @@ final class NoteFlow_Plugin {
 		NoteFlow_REST::init();
 		NoteFlow_Settings::init();
 		NoteFlow_Admin::init();
+		NoteFlow_Review::init();
 
 		foreach ( self::modules() as $module => $class ) {
 			if ( NoteFlow_Settings::module_enabled( $module ) ) {
@@ -62,6 +63,7 @@ final class NoteFlow_Plugin {
 		return array(
 			'dashboard'     => 'NoteFlow_Module_Dashboard',
 			'quick_capture' => 'NoteFlow_Module_Quick_Capture',
+			'notifications' => 'NoteFlow_Module_Toolbar_Notifications',
 			'reminders'     => 'NoteFlow_Module_Reminders',
 			'content_notes' => 'NoteFlow_Module_Content_Notes',
 		);
@@ -84,8 +86,10 @@ final class NoteFlow_Plugin {
 		require_once $dir . 'class-noteflow-admin.php';
 		require_once $dir . 'class-noteflow-admin-assets.php';
 		require_once $dir . 'class-noteflow-upgrade.php';
+		require_once $dir . 'class-noteflow-review.php';
 		require_once $dir . 'modules/class-noteflow-module-dashboard.php';
 		require_once $dir . 'modules/class-noteflow-module-quick-capture.php';
+		require_once $dir . 'modules/class-noteflow-module-toolbar-notifications.php';
 		require_once $dir . 'modules/class-noteflow-module-reminders.php';
 		require_once $dir . 'modules/class-noteflow-module-content-notes.php';
 	}
