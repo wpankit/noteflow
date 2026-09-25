@@ -1,6 +1,6 @@
 <?php
 /**
- * Demo workspace for NoteFlow screenshots. Run with: wp eval-file demo.php
+ * Demo workspace for NoteFlow screenshots. From the plugin folder, run: wp eval-file tools/wporg-assets/demo.php
  */
 $priya = get_user_by( 'login', 'priya' );
 if ( ! $priya ) {
