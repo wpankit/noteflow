@@ -1,0 +1,62 @@
+name: Bug report
+description: Something in NoteFlow doesn't work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. For questions about setting up or using NoteFlow, please use the [support forum](https://wordpress.org/support/plugin/noteflow/). Security issues, such as someone seeing a note that wasn't shared with them, go through the [security policy](https://github.com/wpankit/noteflow/security/policy), not here.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does it happen?
+      options:
+        - Notes app (writing, folders, tags, search)
+        - Sharing, live editing or version history
+        - Discussions on posts and pages
+        - Notifications and reminders
+        - Quick capture or the Dashboard widget
+        - Content notes, templates, import or export
+        - Settings
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the roles of the people involved, and how the note is shared if it matters.
+      placeholder: |
+        1. As an editor, share a note with an author as a viewer.
+        2. As the author, open the note and ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      placeholder: e.g. 2.0.1
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: WordPress and PHP versions, browser, and editor
+      description: For discussions and content notes, say whether you use the block editor or the classic editor.
+      placeholder: e.g. WordPress 7.1, PHP 8.3, Chrome 140, block editor
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Errors or logs
+      description: PHP errors from debug.log or browser console errors, if any.
+      render: shell
