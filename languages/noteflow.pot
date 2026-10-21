@@ -1,4 +1,4 @@
-# Copyright (C) 2026 WPAnkit
+# Copyright (C) 2026 ApplyFilters
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
@@ -27,11 +27,11 @@ msgid "A calm, fast notes app inside WordPress admin. Folders, checklists, tags,
 msgstr ""
 
 #. Author of the plugin
-msgid "WPAnkit"
+msgid "ApplyFilters"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://wpankit.com/"
+msgid "https://applyfilters.com/"
 msgstr ""
 
 #: includes/class-noteflow-admin-assets.php:73

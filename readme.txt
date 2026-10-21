@@ -1,6 +1,6 @@
 === NoteFlow – Notes, Checklists & Team Collaboration ===
-Contributors: ankitmaru
-Donate link: https://wpankit.com/
+Contributors: applyfilters, ankitmaru
+Donate link: https://applyfilters.com/
 Tags: notes, admin notes, collaboration, editorial, checklist
 Requires at least: 6.0
 Tested up to: 7.1
